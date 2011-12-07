@@ -1,0 +1,196 @@
+imports:
+    - { resource: parameters.ini }
+    - { resource: security.yml }
+
+framework:
+    #esi:             ~
+    #translator:      { fallback: %locale% }
+    secret:          %secret%
+    charset:         UTF-8
+    router:          { resource: "%kernel.root_dir%/config/routing.yml" }
+    form:            true
+    csrf_protection: true
+    validation:      { enable_annotations: true }
+    templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
+    session:
+        default_locale: %locale%
+        auto_start:     true
+
+# Twig Configuration
+twig:
+    debug:            %kernel.debug%
+    strict_variables: %kernel.debug%
+
+# Assetic Configuration
+assetic:
+    debug:          %kernel.debug%
+    use_controller: false
+    # java: /usr/bin/java
+    filters:
+        cssrewrite: ~
+        # closure:
+        #     jar: %kernel.root_dir%/java/compiler.jar
+        # yui_css:
+        #     jar: %kernel.root_dir%/java/yuicompressor-2.4.2.jar
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   %database_driver%
+        host:     %database_host%
+        port:     %database_port%
+        dbname:   %database_name%
+        user:     %database_user%
+        password: %database_password%
+        charset:  UTF8
+
+    orm:
+        auto_generate_proxy_classes: %kernel.debug%
+        auto_mapping: true
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: %mailer_transport%
+    host:      %mailer_host%
+    username:  %mailer_user%
+    password:  %mailer_password%
+
+jms_security_extra:
+    secure_controllers:  true
+    secure_all_services: false
+
+filelib:
+    cache: default
+    tempDir: %kernel.root_dir%/../data/temp
+    backend:
+        type: Xi\Filelib\Backend\Doctrine2Backend
+        key: doctrine.orm.default_entity_manager
+    storage_filesystem:
+        directoryPermission: '775'
+        filePermission: '644'
+        root: %kernel.root_dir%/../data/files
+        directoryIdCalculator:
+            type: Xi\Filelib\Storage\Filesystem\DirectoryIdCalculator\TimeDirectoryIdCalculator
+            options: { format: Y/m/d }
+    publisher:
+        type: Xi\Filelib\Publisher\Filesystem\SymlinkPublisher
+        options:
+            relativePathToRoot: ../../data/files
+            baseUrl: /files
+            publicRoot: %kernel.root_dir%/../web/files
+    profiles:
+        default:
+            identifier: default
+            description: 'Upload the original file, unmodified'
+            linker:
+                type: Xi\Filelib\Linker\SequentialLinker
+                options: 
+                    filesPerDirectory: 500
+                    directoryLevels: 3
+                accessToOriginal: true
+                publishOriginal: true
+        versioned:
+            identifier: versioned
+            description: 'Create web optimized versions'
+            linker:
+                type: Xi\Filelib\Linker\SequentialLinker
+                options:
+                    filesPerDirectory: 500
+                    directoryLevels: 3
+                accessToOriginal: true
+                publishOriginal: true
+    plugins:
+        preformat:
+            priority: 10
+            identifier: preformat
+            type: Xi\Filelib\Plugin\Image\ChangeFormatPlugin
+            profiles: [versioned]
+            targetExtension: jpg
+            imageMagickOptions:
+                ImageCompression: 8
+                ImageFormat: jpg
+                ImageCompressionQuality: 80
+            extension: jpg
+            commands:
+                scale:
+                    type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
+                    method: scaleImage
+                    parameters: ['1024', '768', '1']
+                modulate:
+                    type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
+                    method: modulateImage
+                    parameters: [ 100, 30, 100 ]
+        randomizer:
+            priority: 20
+            identifier: randomizer
+            type: Xi\Filelib\Plugin\RandomizeNamePlugin
+            profiles: [default, versioned]
+        mini:
+            identifier: mini
+            priority: 100
+            type: Xi\Filelib\Plugin\Image\VersionPlugin
+            profiles: [versioned]
+            imageMagickOptions:
+                ImageCompression: '8'
+                ImageFormat: jpg
+                ImageCompressionQuality: 30
+            extension: jpg
+            commands:
+                scale:
+                    type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
+                    method: scaleImage
+                    parameters: ['320', '200', '1']
+        cropped:
+            priority: 100
+            identifier: cropped
+            type: Xi\Filelib\Plugin\Image\VersionPlugin
+            profiles: [versioned]
+            imageMagickOptions:
+                ImageCompression: 8
+                ImageFormat: jpg
+                ImageCompressionQuality: 30
+            extension: jpg
+            commands:
+                scale:
+                    type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
+                    method: cropThumbnailImage
+                    parameters: [100, 100]
+        cinemascope:
+            priority: 100
+            identifier: cinemascope
+            type: Xi\Filelib\Plugin\Image\VersionPlugin
+            profiles: [versioned]
+            imageMagickOptions:
+                ImageCompression: 8
+                ImageFormat: jpg
+                ImageCompressionQuality: 30
+            extension: jpg
+            commands:
+                scale:
+                    type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
+                    method: cropThumbnailImage
+                    parameters: [800, 200]
+                sepia:
+                    type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
+                    method: sepiaToneImage
+                    parameters: [ 90 ]
+        thumb:
+            identifier: thumb
+            priority: 100
+            type: Xi\Filelib\Plugin\Image\VersionPlugin
+            profiles: [versioned]
+            imageMagickOptions:
+                ImageCompression: '8'
+                ImageFormat: jpg
+                ImageCompressionQuality: 50
+            extension: jpg
+            commands:
+                scale:
+                    type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
+                    method: scaleImage
+                    parameters: ['640', '480', true]
+                watermark:
+                    type: Xi\Filelib\Plugin\Image\Command\WatermarkCommand
+                    WaterMarkImage: /wwwroot/filelib-demo/data/watermark.png
+                    WaterMarkPosition: se
+                    WaterMarkPadding: 10

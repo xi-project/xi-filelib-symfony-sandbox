@@ -1,0 +1,48 @@
+{% block title %}It's good to be a banksta!{% endblock %}
+
+{% extends "::base.html.twig" %}
+
+{% block body %}
+
+<h1>Filebanksta is an honest banksta</h1>
+
+<h2>Render med urls</h2>
+
+<img src="{{ cropped_url }}" />
+
+<br />
+<br />
+
+<img src="{{ mini_url }}" />
+
+<br />
+<br />
+
+<img src="{{ thumb_url }}" />
+
+<br />
+<br />
+
+<img src="{{ cinemascope_url }}" />
+
+<h2>Render med äkshuun</h2>
+
+<img src="/filelib/file/render/{{ file.getId() }}/cropped" />
+
+<br />
+<br />
+
+<img src="/filelib/file/render/{{ file.getId() }}/mini" />
+
+<br />
+<br />
+
+<img src="/filelib/file/render/{{ file.getId() }}/thumb" />
+
+<br />
+<br />
+
+<img src="/filelib/file/render/{{ file.getId() }}/cinemascope" />
+
+
+{% endblock %}
