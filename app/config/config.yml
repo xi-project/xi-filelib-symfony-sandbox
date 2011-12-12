@@ -191,6 +191,6 @@ filelib:
                     parameters: ['640', '480', true]
                 watermark:
                     type: Xi\Filelib\Plugin\Image\Command\WatermarkCommand
-                    WaterMarkImage: /wwwroot/filelib-demo/data/watermark.png
+                    WaterMarkImage: %root_dir%/data/watermark.png
                     WaterMarkPosition: se
                     WaterMarkPadding: 10
