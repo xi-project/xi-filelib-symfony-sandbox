@@ -16,15 +16,24 @@ class DefaultController extends Controller
         
         // We want to upload curious manatee image.
         $path = $this->get('kernel')->getRootDir() . "/../data/uploads/curious-manatee.jpg";
-        
-        // Accept only images
-        $filelib->file()->getUploader()->accept('image/');
 
         // Find root folder
         $folder = $filelib->folder()->findRoot();
-                
-        // Upload file to root folder with versioned profile
-        $file = $filelib->file()->upload($path, $folder, 'versioned');
+        
+        // Prepare file for upload
+        $upload = $filelib->file()->prepareUpload($path);
+        
+        // Configure (optional) limiter to accept only images
+        $limiter = new \Xi\Filelib\File\Upload\Limiter;
+        $limiter->accept('image/');
+        
+        // If not accepted by limiter, deny upload.
+        if(!$limiter->isAccepted($upload)) {
+            throw new \Symfony\Component\HttpKernel\Exception\HttpException(403, "File type '{$upload->getMimeType()}' is not allowed");
+        }
+                        
+        // Upload prepared file to root folder with versioned profile. You can also use path if not using limiter!
+        $file = $filelib->file()->upload($upload, $folder, 'versioned');
         
         return $this->render('FilelibDemoBundle:Default:index.html.twig', array(
             'fl' => $filelib,
@@ -34,5 +43,9 @@ class DefaultController extends Controller
             'cinemascope_url' => $filelib->file()->getUrl($file, array('version' => 'cinemascope')),
             'cropped_url' => $filelib->file()->getUrl($file, array('version' => 'cropped')),
         ));
+                
+        return $this->render('FilelibDemoBundle:Default:index.html.twig');
+                
+        
     }
 }
