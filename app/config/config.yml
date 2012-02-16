@@ -59,19 +59,23 @@ jms_security_extra:
     secure_controllers:  true
     secure_all_services: false
 
-filelib:
+xi_filelib:
     cache: default
     tempDir: %kernel.root_dir%/../data/temp
     backend:
         type: Xi\Filelib\Backend\Doctrine2Backend
         key: doctrine.orm.default_entity_manager
+        fileEntity: Xi\Bundle\FilelibBundle\Entity\File
+        folderEntity: Xi\Bundle\FilelibBundle\Entity\Folder
     storage_filesystem:
         directoryPermission: '775'
         filePermission: '644'
         root: %kernel.root_dir%/../data/files
         directoryIdCalculator:
-            type: Xi\Filelib\Storage\Filesystem\DirectoryIdCalculator\TimeDirectoryIdCalculator
-            options: { format: Y/m/d }
+#            type: Xi\Filelib\Storage\Filesystem\DirectoryIdCalculator\TimeDirectoryIdCalculator
+#            options: { format: Y/m/d }
+            type: Xi\Filelib\Storage\Filesystem\DirectoryIdCalculator\LeveledDirectoryIdCalculator
+            options: { directoryLevels: 3, filesPerDirectory: 500 }
     publisher:
         type: Xi\Filelib\Publisher\Filesystem\SymlinkPublisher
         options:
@@ -87,6 +91,9 @@ filelib:
                 options: 
                     filesPerDirectory: 500
                     directoryLevels: 3
+#                type: Xi\Filelib\Linker\BeautifurlLinker
+#                options:
+#                    slugify: false
                 accessToOriginal: true
                 publishOriginal: true
         versioned:
@@ -115,7 +122,7 @@ filelib:
                 scale:
                     type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
                     method: scaleImage
-                    parameters: ['1024', '768', '1']
+                    parameters: [ 1024, 768, 1]
                 modulate:
                     type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
                     method: modulateImage
@@ -125,13 +132,14 @@ filelib:
             identifier: randomizer
             type: Xi\Filelib\Plugin\RandomizeNamePlugin
             profiles: [default, versioned]
+
         mini:
             identifier: mini
             priority: 100
             type: Xi\Filelib\Plugin\Image\VersionPlugin
             profiles: [versioned]
             imageMagickOptions:
-                ImageCompression: '8'
+                ImageCompression: 8
                 ImageFormat: jpg
                 ImageCompressionQuality: 30
             extension: jpg
@@ -139,7 +147,7 @@ filelib:
                 scale:
                     type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
                     method: scaleImage
-                    parameters: ['320', '200', '1']
+                    parameters: [ 320, 200, 1]
         cropped:
             priority: 100
             identifier: cropped
@@ -191,6 +199,6 @@ filelib:
                     parameters: ['640', '480', true]
                 watermark:
                     type: Xi\Filelib\Plugin\Image\Command\WatermarkCommand
-                    WaterMarkImage: /wwwroot/filelib-demo/data/watermark.png
+                    WaterMarkImage: %kernel.root_dir%/../data/watermark.png
                     WaterMarkPosition: se
                     WaterMarkPadding: 10

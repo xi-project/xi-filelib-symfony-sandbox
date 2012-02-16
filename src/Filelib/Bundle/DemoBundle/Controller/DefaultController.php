@@ -10,7 +10,6 @@ class DefaultController extends Controller
     
     public function indexAction()
     {
-                
         // Luss filelib from DI container
         $filelib = $this->get('filelib');
         
@@ -24,11 +23,11 @@ class DefaultController extends Controller
         $upload = $filelib->file()->prepareUpload($path);
         
         // Configure (optional) limiter to accept only images
-        $limiter = new \Xi\Filelib\File\Upload\Limiter;
+        $limiter = new \Xi\Filelib\File\Upload\Limiter();
         $limiter->accept('image/');
         
         // If not accepted by limiter, deny upload.
-        if(!$limiter->isAccepted($upload)) {
+        if (!$limiter->isAccepted($upload)) {
             throw new \Symfony\Component\HttpKernel\Exception\HttpException(403, "File type '{$upload->getMimeType()}' is not allowed");
         }
                         

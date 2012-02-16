@@ -15,11 +15,12 @@ $loader->registerNamespaces(array(
     'Assetic'          => __DIR__.'/../vendor/assetic/src',
     'Metadata'         => __DIR__.'/../vendor/metadata/src',
     'Xi\\Filelib'      => __DIR__ . '/../vendor/xi-filelib/library',
+    'Xi\\Bundle'      => __DIR__ . '/../vendor/bundles',
+    'Zend'             => __DIR__ . '/../vendor/zend-framework/library',
 ));
 $loader->registerPrefixes(array(
     'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',
     'Twig_'            => __DIR__.'/../vendor/twig/lib',
-    'Zend_'            => '/wwwroot/ole-filelib-demo/library',
 ));
 
 // intl
