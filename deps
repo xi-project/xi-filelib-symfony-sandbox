@@ -2,6 +2,11 @@
     git=http://github.com/xi-project/xi-filelib.git
     version=master
 
+[XiFilelibBundle]
+    git=http://github.com/xi-project/xi-bundle-filelib.git
+    target=/bundles/Xi/Bundle/FilelibBundle
+    version=master
+
 [symfony]
     git=http://github.com/symfony/symfony.git
     version=v2.0.6
