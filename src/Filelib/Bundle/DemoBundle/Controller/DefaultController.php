@@ -3,7 +3,7 @@
 namespace Filelib\Bundle\DemoBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use Xi\Filelib\Renderer\SymfonyRenderer;
 
 class DefaultController extends Controller
 {
@@ -14,7 +14,7 @@ class DefaultController extends Controller
         $filelib = $this->get('filelib');
         
         // We want to upload curious manatee image.
-        $path = $this->get('kernel')->getRootDir() . "/../data/uploads/curious-manatee.jpg";
+        $path = $this->get('kernel')->getRootDir() . "/data/uploads/curious-manatee.jpg";
 
         // Find root folder
         $folder = $filelib->folder()->findRoot();
@@ -34,17 +34,13 @@ class DefaultController extends Controller
         // Upload prepared file to root folder with versioned profile. You can also use path if not using limiter!
         $file = $filelib->file()->upload($upload, $folder, 'versioned');
         
+        
         return $this->render('FilelibDemoBundle:Default:index.html.twig', array(
             'fl' => $filelib,
             'file' => $file,
-            'mini_url' => $filelib->file()->getUrl($file, array('version' => 'mini')),
-            'thumb_url' => $filelib->file()->getUrl($file, array('version' => 'thumb')),
-            'cinemascope_url' => $filelib->file()->getUrl($file, array('version' => 'cinemascope')),
-            'cropped_url' => $filelib->file()->getUrl($file, array('version' => 'cropped')),
         ));
                 
         return $this->render('FilelibDemoBundle:Default:index.html.twig');
-                
         
     }
 }

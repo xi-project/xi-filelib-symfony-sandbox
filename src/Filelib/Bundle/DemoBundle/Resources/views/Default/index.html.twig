@@ -8,40 +8,40 @@
 
 <h2>Render med urls</h2>
 
-<img src="{{ cropped_url }}" />
+<img src="{{ filelib_url(file, "cropped") }}" />
 
 <br />
 <br />
 
-<img src="{{ mini_url }}" />
+<img src="{{ filelib_url(file, "mini") }}" />
 
 <br />
 <br />
 
-<img src="{{ thumb_url }}" />
+<img src="{{ filelib_url(file, "thumb") }}" />
 
 <br />
 <br />
 
-<img src="{{ cinemascope_url }}" />
+<img src="{{ filelib_url(file, "cinemascope") }}" />
 
 <h2>Render med äkshuun</h2>
 
-<img src="/filelib/file/render/{{ file.getId() }}/cropped" />
+<img src="{{ filelib_render(file, "cropped") }}" />
 
 <br />
 <br />
 
-<img src="/filelib/file/render/{{ file.getId() }}/mini" />
+<img src="{{ filelib_render(file, "mini") }}" />
 
 <br />
 <br />
 
-<img src="/filelib/file/render/{{ file.getId() }}/thumb" />
+<img src="{{ filelib_render(file, "thumb") }}" />
 
 <br />
 <br />
 
-<img src="/filelib/file/render/{{ file.getId() }}/cinemascope" />
+<img src="{{ filelib_render(file, "cinemascope") }}" />
 
 {% endblock %}

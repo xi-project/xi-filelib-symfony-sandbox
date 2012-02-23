@@ -60,8 +60,12 @@ jms_security_extra:
     secure_all_services: false
 
 xi_filelib:
+    renderer:
+        accelerate: true
+        stripPrefixFromAcceleratedPath: "%kernel.root_dir%/data/files"
+        addPrefixToAcceleratedPath: "/protected"
     cache: default
-    tempDir: %kernel.root_dir%/../data/temp
+    tempDir: %kernel.root_dir%/data/temp
     backend:
         type: Xi\Filelib\Backend\Doctrine2Backend
         key: doctrine.orm.default_entity_manager
@@ -70,7 +74,7 @@ xi_filelib:
     storage_filesystem:
         directoryPermission: '775'
         filePermission: '644'
-        root: %kernel.root_dir%/../data/files
+        root: %kernel.root_dir%/data/files
         directoryIdCalculator:
 #            type: Xi\Filelib\Storage\Filesystem\DirectoryIdCalculator\TimeDirectoryIdCalculator
 #            options: { format: Y/m/d }
@@ -79,7 +83,7 @@ xi_filelib:
     publisher:
         type: Xi\Filelib\Publisher\Filesystem\SymlinkPublisher
         options:
-            relativePathToRoot: ../../data/files
+            relativePathToRoot: ../../app/data/files
             baseUrl: /files
             publicRoot: %kernel.root_dir%/../web/files
     profiles:
@@ -199,6 +203,6 @@ xi_filelib:
                     parameters: ['640', '480', true]
                 watermark:
                     type: Xi\Filelib\Plugin\Image\Command\WatermarkCommand
-                    WaterMarkImage: %kernel.root_dir%/../data/watermark.png
+                    WaterMarkImage: %kernel.root_dir%/data/watermark.png
                     WaterMarkPosition: se
                     WaterMarkPadding: 10
