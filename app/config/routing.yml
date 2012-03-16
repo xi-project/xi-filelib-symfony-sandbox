@@ -1,3 +1,8 @@
+# Internal routing configuration to handle ESI
+#_internal:
+#   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
+#   prefix:   /_internal
+
 FilelibDemoBundle:
     resource: "@FilelibDemoBundle/Resources/config/routing.yml"
     prefix:   /
@@ -6,7 +11,3 @@ FilelibBundle:
     resource: "@XiFilelibBundle/Resources/config/routing.yml"
     prefix: /filelib
 
-# Internal routing configuration to handle ESI
-#_internal:
-#   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
-#   prefix:   /_internal
