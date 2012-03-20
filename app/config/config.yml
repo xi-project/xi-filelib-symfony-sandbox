@@ -61,7 +61,7 @@ jms_security_extra:
 
 xi_filelib:
     renderer:
-        accelerate: true
+        accelerate: false
         stripPrefixFromAcceleratedPath: "%kernel.root_dir%/data/files"
         addPrefixToAcceleratedPath: "/protected"
     cache: default
