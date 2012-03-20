@@ -18,10 +18,6 @@ class DemoController extends Controller
      */
     public function indexAction()
     {
-        \Zend_Debug::dump($this->get('filelib'));
-        
-        die();
-        
         return array();
     }
 

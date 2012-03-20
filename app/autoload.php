@@ -16,7 +16,8 @@ $loader->registerNamespaces(array(
     'Metadata'         => __DIR__.'/../vendor/metadata/src',
     'Xi\\Filelib'      => __DIR__ . '/../vendor/xi-filelib/library',
     'Xi\\Bundle'      => __DIR__ . '/../vendor/bundles',
-    'Zend'             => __DIR__ . '/../vendor/zend-framework/library',
+
+    
 ));
 $loader->registerPrefixes(array(
     'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',

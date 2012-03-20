@@ -1,3 +1,7 @@
 FilelibDemoBundle_homepage:
     pattern:  /filelib-demo
     defaults: { _controller: FilelibDemoBundle:Default:index }
+
+FilelibDemoBundle_clear:
+    pattern:  /filelib-demo/clear
+    defaults: { _controller: FilelibDemoBundle:Default:clear }

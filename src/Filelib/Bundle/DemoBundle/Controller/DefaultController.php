@@ -5,8 +5,23 @@ namespace Filelib\Bundle\DemoBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Xi\Filelib\Renderer\SymfonyRenderer;
 
+use Symfony\Component\HttpFoundation\Response;
+
 class DefaultController extends Controller
 {
+    
+    public function clearAction()
+    {
+        // Luss filelib from DI container
+        $filelib = $this->get('filelib');
+
+        foreach ($filelib->getFileOperator()->findAll() as $file) {
+            $filelib->getFileOperator()->delete($file);
+        }
+        
+        return new Response('All is clear!');
+    }
+    
     
     public function indexAction()
     {
