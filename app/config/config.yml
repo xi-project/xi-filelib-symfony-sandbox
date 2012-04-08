@@ -47,6 +47,11 @@ doctrine:
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
+        mappings:
+            xi_filelib:
+                dir:    %kernel.root_dir%/../vendor/xi-filelib/library/Xi/Filelib/Backend/Doctrine2/Entity
+                prefix: Xi\Filelib\Backend\Doctrine2\Entity
+                type:   annotation
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -69,8 +74,8 @@ xi_filelib:
     backend:
         type: Xi\Filelib\Backend\Doctrine2Backend
         key: doctrine.orm.default_entity_manager
-        fileEntity: Xi\Bundle\FilelibBundle\Entity\File
-        folderEntity: Xi\Bundle\FilelibBundle\Entity\Folder
+        fileEntity: Xi\Filelib\Backend\Doctrine2\Entity\File
+        folderEntity: Xi\Filelib\Backend\Doctrine2\Entity\Folder
     storage_filesystem:
         directoryPermission: '775'
         filePermission: '644'
