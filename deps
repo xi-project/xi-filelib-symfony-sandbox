@@ -64,10 +64,9 @@
 
 [xi-filelib]
     git=http://github.com/xi-project/xi-filelib.git
-    version=master
+    version=origin/master
 
 [XiFilelibBundle]
     git=http://github.com/xi-project/xi-bundle-filelib.git
     target=/bundles/Xi/Bundle/FilelibBundle
-    version=master
-
+    version=origin/master
