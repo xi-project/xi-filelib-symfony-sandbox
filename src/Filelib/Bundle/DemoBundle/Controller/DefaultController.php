@@ -36,7 +36,7 @@ class DefaultController extends Controller
         
         // Prepare file for upload
         $upload = $filelib->file()->prepareUpload($path);
-        
+                
         // Configure (optional) limiter to accept only images
         $limiter = new \Xi\Filelib\File\Upload\Limiter();
         $limiter->accept('image/');
@@ -45,10 +45,16 @@ class DefaultController extends Controller
         if (!$limiter->isAccepted($upload)) {
             throw new \Symfony\Component\HttpKernel\Exception\HttpException(403, "File type '{$upload->getMimeType()}' is not allowed");
         }
-                        
+              
+        for ($x = 1; $x < 1000; $x++) {
+            $file = $filelib->file()->upload($upload, $folder, 'versioned');
+        }
         // Upload prepared file to root folder with versioned profile. You can also use path if not using limiter!
-        $file = $filelib->file()->upload($upload, $folder, 'versioned');
         
+        
+        var_dump($file);
+        
+        die();
         
         return $this->render('FilelibDemoBundle:Default:index.html.twig', array(
             'fl' => $filelib,
