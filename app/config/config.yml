@@ -65,6 +65,12 @@ jms_security_extra:
     secure_all_services: false
 
 xi_filelib:
+    
+    queue:
+        type: Xi\Filelib\Queue\PhpAMQPQueue
+        arguments: [ "dr-kobros.com", 5672, "pekkis", "g04753m135", "filelib", "filelib_exchange", "filelib_queue" ] 
+        # $host, $port, $user, $pass, $vhost, $exchange, $queue
+    
     renderer:
         accelerate: false
         stripPrefixFromAcceleratedPath: "%kernel.root_dir%/data/files"
