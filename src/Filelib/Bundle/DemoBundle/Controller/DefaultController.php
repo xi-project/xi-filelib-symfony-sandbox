@@ -7,6 +7,8 @@ use Xi\Filelib\Renderer\SymfonyRenderer;
 
 use Symfony\Component\HttpFoundation\Response;
 
+use Xi\Filelib\File\DefaultFileOperator;
+
 class DefaultController extends Controller
 {
     
@@ -45,16 +47,21 @@ class DefaultController extends Controller
         if (!$limiter->isAccepted($upload)) {
             throw new \Symfony\Component\HttpKernel\Exception\HttpException(403, "File type '{$upload->getMimeType()}' is not allowed");
         }
-              
-        for ($x = 1; $x < 1000; $x++) {
+        
+        
+        $op = $filelib->getFileOperator();
+        // $op->setCommandStrategy(DefaultFileOperator::COMMAND_UPLOAD, DefaultFileOperator::STRATEGY_ASYNCHRONOUS);
+                
+        for ($x = 1; $x <= 1; $x++) {
             $file = $filelib->file()->upload($upload, $folder, 'versioned');
         }
         // Upload prepared file to root folder with versioned profile. You can also use path if not using limiter!
         
-        
+        /*
         var_dump($file);
         
         die();
+        */
         
         return $this->render('FilelibDemoBundle:Default:index.html.twig', array(
             'fl' => $filelib,
