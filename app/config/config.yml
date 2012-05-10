@@ -65,12 +65,11 @@ jms_security_extra:
     secure_all_services: false
 
 xi_filelib:
-    
+
     queue:
         type: Xi\Filelib\Queue\PhpAMQPQueue
-        arguments: [ "dr-kobros.com", 5672, "pekkis", "g04753m135", "filelib", "filelib_exchange", "filelib_queue" ] 
-        # $host, $port, $user, $pass, $vhost, $exchange, $queue
-    
+        arguments: [ "dr-kobros.com", 5672, "%amqp_username%", "%amqp_password%", "filelib", "filelib_exchange", "filelib_queue" ]
+
     renderer:
         accelerate: false
         stripPrefixFromAcceleratedPath: "%kernel.root_dir%/data/files"
@@ -103,7 +102,7 @@ xi_filelib:
             description: 'Upload the original file, unmodified'
             linker:
                 type: Xi\Filelib\Linker\SequentialLinker
-                options: 
+                options:
                     filesPerDirectory: 500
                     directoryLevels: 3
 #                type: Xi\Filelib\Linker\BeautifurlLinker
