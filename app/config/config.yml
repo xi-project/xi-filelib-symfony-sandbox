@@ -68,7 +68,7 @@ xi_filelib:
 
     queue:
         type: Xi\Filelib\Queue\PhpAMQPQueue
-        arguments: [ "dr-kobros.com", 5672, "%amqp_username%", "%amqp_password%", "filelib", "filelib_exchange", "filelib_queue" ]
+        arguments: [ "%amqp_host%", 5672, "%amqp_username%", "%amqp_password%", "filelib", "filelib_exchange", "filelib_queue" ]
 
     renderer:
         accelerate: false
