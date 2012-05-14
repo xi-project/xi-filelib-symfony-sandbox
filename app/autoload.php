@@ -18,12 +18,11 @@ $loader->registerNamespaces(array(
     'Xi\\Bundle'      => __DIR__ . '/../vendor/bundles',
     'PhpAmqpLib'      => __DIR__ . '/../vendor/phpAmqp',
 
-    
+
 ));
 $loader->registerPrefixes(array(
     'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',
     'Twig_'            => __DIR__.'/../vendor/twig/lib',
-    'Zend_' => '/wwwroot/dporssi2011/library',
 ));
 
 // intl
