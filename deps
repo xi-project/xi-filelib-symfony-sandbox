@@ -70,3 +70,7 @@
     git=http://github.com/xi-project/xi-bundle-filelib.git
     target=/bundles/Xi/Bundle/FilelibBundle
     version=origin/master
+
+[phpAmqp]
+    git=http://github.com/videlalvaro/php-amqplib.git
+    version=origin/master

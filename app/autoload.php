@@ -16,8 +16,9 @@ $loader->registerNamespaces(array(
     'Metadata'         => __DIR__.'/../vendor/metadata/src',
     'Xi\\Filelib'      => __DIR__ . '/../vendor/xi-filelib/library',
     'Xi\\Bundle'      => __DIR__ . '/../vendor/bundles',
+    'PhpAmqpLib'      => __DIR__ . '/../vendor/phpAmqp',
 
-    
+
 ));
 $loader->registerPrefixes(array(
     'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',
@@ -46,4 +47,3 @@ AnnotationRegistry::registerFile(__DIR__.'/../vendor/doctrine/lib/Doctrine/ORM/M
 // the lazy loading of the init file (which is expensive)
 require_once __DIR__.'/../vendor/swiftmailer/lib/classes/Swift.php';
 Swift::registerAutoload(__DIR__.'/../vendor/swiftmailer/lib/swift_init.php');
-
