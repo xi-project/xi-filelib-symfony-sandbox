@@ -2,10 +2,13 @@ FilelibDemoBundle_homepage:
     pattern:  /filelib-demo
     defaults: { _controller: FilelibDemoBundle:Default:index }
 
-
 FilelibDemoBundle_testSuite:
     pattern:  /filelib-demo/test-suite
     defaults: { _controller: FilelibDemoBundle:Default:testSuite }
+
+FilelibDemoBundle_asyncUpload:
+    pattern:  /filelib-demo/async-upload
+    defaults: { _controller: FilelibDemoBundle:Default:asyncUploadTest }
 
 FilelibDemoBundle_clear:
     pattern:  /filelib-demo/clear

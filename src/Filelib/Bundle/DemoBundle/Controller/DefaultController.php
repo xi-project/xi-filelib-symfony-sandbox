@@ -4,10 +4,9 @@ namespace Filelib\Bundle\DemoBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Xi\Filelib\Renderer\SymfonyRenderer;
-
 use Symfony\Component\HttpFoundation\Response;
-
 use Xi\Filelib\File\DefaultFileOperator;
+use Xi\Filelib\Command;
 
 class DefaultController extends Controller
 {
@@ -76,6 +75,30 @@ class DefaultController extends Controller
 
         return $this->render('FilelibDemoBundle:Default:index.html.twig');
 
+    }
+
+
+    public function asyncUploadTestAction()
+    {
+        $filelib = $this->get('filelib');
+
+        $iter = new \DirectoryIterator($this->get('kernel')->getRootDir() . '/data/uploads');
+
+        $folder = $filelib->getFolderOperator()->findRoot();
+
+        $uploaded = array();
+
+        $filelib->getFileOperator()->setCommandStrategy(DefaultFileOperator::COMMAND_UPLOAD, Command::STRATEGY_ASYNCHRONOUS);
+
+        for ($x = 1; $x <= 100; $x++) {
+            foreach ($iter as $key => $file) {
+                if ($file->isFile()) {
+                    $filelib->getFileOperator()->upload($file->getRealPath(), $folder, 'versioned');
+                }
+            }
+        }
+
+        return new Response('Some uploads were created, sir');
     }
 
 
