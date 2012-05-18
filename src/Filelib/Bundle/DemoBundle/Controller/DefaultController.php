@@ -36,7 +36,7 @@ class DefaultController extends Controller
         $folder = $filelib->getFolderOperator()->findRoot();
 
         // Prepare file for upload
-        $upload = $filelib->file()->prepareUpload($path);
+        $upload = $filelib->getFileOperator()->prepareUpload($path);
 
 
 
@@ -51,20 +51,6 @@ class DefaultController extends Controller
 
 
         $op = $filelib->getFileOperator();
-        // $op->setCommandStrategy(DefaultFileOperator::COMMAND_UPLOAD, DefaultFileOperator::STRATEGY_ASYNCHRONOUS);
-
-        /*
-        for ($x = 1; $x <= 1; $x++) {
-            $file = $filelib->file()->upload($upload, $folder, 'versioned');
-        }
-         */
-        // Upload prepared file to root folder with versioned profile. You can also use path if not using limiter!
-
-        /*
-        var_dump($file);
-
-        die();
-        */
 
         $file = $op->upload($upload, $folder, 'versioned');
 
@@ -99,6 +85,33 @@ class DefaultController extends Controller
         }
 
         return new Response('Some uploads were created, sir');
+    }
+
+
+    public function copyTestAction()
+    {
+        // Luss filelib from DI container
+        $filelib = $this->get('filelib');
+
+        // We want to upload curious manatee image.
+        $path = $this->get('kernel')->getRootDir() . "/data/uploads/curious-manatee.jpg";
+
+        // Find root folder
+        $folder = $filelib->getFolderOperator()->findRoot();
+
+        // Prepare file for upload
+        $upload = $filelib->getFileOperator()->prepareUpload($path);
+
+        $file = $filelib->getFileOperator()->upload($upload, $folder, 'versioned');
+
+        $filelib->getFileOperator()->copy($file, $folder);
+        $filelib->getFileOperator()->copy($file, $folder);
+        $filelib->getFileOperator()->copy($file, $folder);
+        $file = $filelib->getFileOperator()->copy($file, $folder);
+
+        var_dump($file);
+        die();
+
     }
 
 

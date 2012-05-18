@@ -6,6 +6,12 @@ FilelibDemoBundle_testSuite:
     pattern:  /filelib-demo/test-suite
     defaults: { _controller: FilelibDemoBundle:Default:testSuite }
 
+
+FilelibDemoBundle_copyTest:
+    pattern:  /filelib-demo/copy-test
+    defaults: { _controller: FilelibDemoBundle:Default:copyTest }
+
+
 FilelibDemoBundle_asyncUpload:
     pattern:  /filelib-demo/async-upload
     defaults: { _controller: FilelibDemoBundle:Default:asyncUploadTest }
