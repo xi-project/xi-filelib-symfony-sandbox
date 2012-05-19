@@ -16,7 +16,10 @@ class FilelibConfiguratorService implements EventSubscriberInterface
      */
     static public function getSubscribedEvents()
     {
-        return array('file.instantiate' => 'onFileInstantiate');
+        return array(
+            'file.instantiate' => 'onFileInstantiate',
+            'file.upload' => 'onFileInstantiate',
+        );
     }
 
 
