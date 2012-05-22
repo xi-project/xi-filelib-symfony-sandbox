@@ -229,22 +229,22 @@ xi_filelib:
                     WaterMarkImage: %kernel.root_dir%/data/watermark.png
                     WaterMarkPosition: se
                     WaterMarkPadding: 10
-        zencoder:
-            identifier: zencoder
-            type: Xi\Filelib\Plugin\Video\ZencoderPlugin
-            profiles: [versioned]
-            apiKey: %zencoder_key%
-            awsKey: %s3_key%
-            awsSecretKey: %s3_secretkey%
-            awsBucket: %s3_bucket%
-            outputs:
-                pygmi:
-                    extension: mp4
-                    output:
-                        label: pygmi
-                        device_profile: v2/mobile/legacy
-                watussi:
-                    extension: mp4
-                    output:
-                        label: watussi
-                        device_profile: v2/mobile/advanced
+#        zencoder:
+#            identifier: zencoder
+#            type: Xi\Filelib\Plugin\Video\ZencoderPlugin
+#            profiles: [versioned]
+#            apiKey: %zencoder_key%
+#            awsKey: %s3_key%
+#            awsSecretKey: %s3_secretkey%
+#            awsBucket: %s3_bucket%
+#            outputs:
+#                pygmi:
+#                    extension: mp4
+#                    output:
+#                        label: pygmi
+#                        device_profile: v2/mobile/legacy
+#                watussi:
+#                    extension: mp4
+#                    output:
+#                        label: watussi
+#                        device_profile: v2/mobile/advanced
