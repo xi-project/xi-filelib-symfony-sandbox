@@ -3,6 +3,8 @@
 use Symfony\Component\ClassLoader\UniversalClassLoader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 
+set_include_path(get_include_path() . PATH_SEPARATOR . __DIR__ . '/../src');
+
 $loader = new UniversalClassLoader();
 $loader->registerNamespaces(array(
     'Symfony'          => array(__DIR__.'/../vendor/symfony/src', __DIR__.'/../vendor/bundles'),
@@ -23,6 +25,8 @@ $loader->registerNamespaces(array(
 $loader->registerPrefixes(array(
     'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',
     'Twig_'            => __DIR__.'/../vendor/twig/lib',
+    'Services_'            => __DIR__.'/../src',
+    'Zend_'            => __DIR__.'/../src',
 ));
 
 // intl
@@ -35,6 +39,9 @@ if (!function_exists('intl_get_error_code')) {
 $loader->registerNamespaceFallbacks(array(
     __DIR__.'/../src',
 ));
+
+$loader->registerPrefixFallbacks(array(__DIR__.'/../src'));
+
 $loader->register();
 
 AnnotationRegistry::registerLoader(function($class) use ($loader) {

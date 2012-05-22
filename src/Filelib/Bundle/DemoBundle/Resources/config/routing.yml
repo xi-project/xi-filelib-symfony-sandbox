@@ -11,6 +11,10 @@ FilelibDemoBundle_copyTest:
     pattern:  /filelib-demo/copy-test
     defaults: { _controller: FilelibDemoBundle:Default:copyTest }
 
+FilelibDemoBundle_videoTest:
+    pattern:  /filelib-demo/video-test
+    defaults: { _controller: FilelibDemoBundle:Default:videoTest }
+
 
 FilelibDemoBundle_asyncUpload:
     pattern:  /filelib-demo/async-upload

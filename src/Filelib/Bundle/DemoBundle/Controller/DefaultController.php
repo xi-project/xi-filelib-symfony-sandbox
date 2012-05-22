@@ -172,4 +172,32 @@ class DefaultController extends Controller
     }
 
 
+
+    public function videoTestAction()
+    {
+        // Luss filelib from DI container
+        $filelib = $this->get('filelib');
+
+        // We want to upload curious manatee image.
+        $path = $this->get('kernel')->getRootDir() . "/../vendor/xi-filelib/tests/data/hauska-joonas.mp4";
+
+        // Find root folder
+        $folder = $filelib->getFolderOperator()->findRoot();
+
+        // Prepare file for upload
+        $upload = $filelib->getFileOperator()->prepareUpload($path);
+
+
+        $op = $filelib->getFileOperator();
+
+        $op->setCommandStrategy(DefaultFileOperator::COMMAND_UPLOAD, Command::STRATEGY_ASYNCHRONOUS);
+
+        $file = $op->upload($upload, $folder, 'versioned');
+
+        return new Response('Video upload was pooped to the queue');
+
+    }
+
+
+
 }

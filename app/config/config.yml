@@ -122,7 +122,6 @@ xi_filelib:
                 publishOriginal: true
     plugins:
         preformat:
-            priority: 10
             identifier: preformat
             type: Xi\Filelib\Plugin\Image\ChangeFormatPlugin
             profiles: [versioned]
@@ -149,7 +148,6 @@ xi_filelib:
 
         mini:
             identifier: mini
-            priority: 100
             type: Xi\Filelib\Plugin\Image\VersionPlugin
             profiles: [versioned]
             imageMagickOptions:
@@ -164,7 +162,6 @@ xi_filelib:
                     parameters: [ 320, 200, 1]
         puuppa:
             identifier: puuppa
-            priority: 100
             type: Filelib\Bundle\DemoBundle\Plugin\VersionPlugin
             profiles: [versioned]
             imageMagickOptions:
@@ -182,7 +179,6 @@ xi_filelib:
                     method: modulateImage
                     parameters: [ 100, 0, 0 ]
         cropped:
-            priority: 100
             identifier: cropped
             type: Xi\Filelib\Plugin\Image\VersionPlugin
             profiles: [versioned]
@@ -197,7 +193,6 @@ xi_filelib:
                     method: cropThumbnailImage
                     parameters: [100, 100]
         cinemascope:
-            priority: 100
             identifier: cinemascope
             type: Xi\Filelib\Plugin\Image\VersionPlugin
             profiles: [versioned]
@@ -217,7 +212,6 @@ xi_filelib:
                     parameters: [ 90 ]
         thumb:
             identifier: thumb
-            priority: 100
             type: Xi\Filelib\Plugin\Image\VersionPlugin
             profiles: [versioned]
             imageMagickOptions:
@@ -235,3 +229,22 @@ xi_filelib:
                     WaterMarkImage: %kernel.root_dir%/data/watermark.png
                     WaterMarkPosition: se
                     WaterMarkPadding: 10
+        zencoder:
+            identifier: zencoder
+            type: Xi\Filelib\Plugin\Video\ZencoderPlugin
+            profiles: [versioned]
+            apiKey: %zencoder_key%
+            awsKey: %s3_key%
+            awsSecretKey: %s3_secretkey%
+            awsBucket: %s3_bucket%
+            outputs:
+                pygmi:
+                    extension: mp4
+                    output:
+                        label: pygmi
+                        device_profile: v2/mobile/legacy
+                watussi:
+                    extension: mp4
+                    output:
+                        label: watussi
+                        device_profile: v2/mobile/advanced

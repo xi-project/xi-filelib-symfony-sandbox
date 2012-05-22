@@ -18,6 +18,11 @@
     amqp_username =
     amqp_password =
 
+    zencoder_key =
+    s3_key =
+    s3_secretkey =
+    s3_bucket =
+
     locale            = en
 
     secret            = ThisTokenIsNotSoSecretChangeIt
