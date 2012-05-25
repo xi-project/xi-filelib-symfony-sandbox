@@ -77,7 +77,7 @@ class VersionPlugin extends AbstractVersionProvider
 
 
         // Todo: optimize
-        $retrieved = $this->getStorage()->retrieve($file)->getPathname();
+        $retrieved = $this->getStorage()->retrieve($file->getResource())->getPathname();
 
         $img = $ih->createImagick($retrieved);
 

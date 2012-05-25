@@ -76,7 +76,7 @@ class DefaultController extends Controller
 
         $filelib->getFileOperator()->setCommandStrategy(DefaultFileOperator::COMMAND_UPLOAD, Command::STRATEGY_ASYNCHRONOUS);
 
-        for ($x = 1; $x <= 100; $x++) {
+        for ($x = 1; $x <= 10; $x++) {
             foreach ($iter as $key => $file) {
                 if ($file->isFile()) {
                     $filelib->getFileOperator()->upload($file->getRealPath(), $folder, 'versioned');
