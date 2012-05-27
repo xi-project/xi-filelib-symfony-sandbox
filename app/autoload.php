@@ -16,10 +16,10 @@ $loader->registerNamespaces(array(
     'Monolog'          => __DIR__.'/../vendor/monolog/src',
     'Assetic'          => __DIR__.'/../vendor/assetic/src',
     'Metadata'         => __DIR__.'/../vendor/metadata/src',
-    'Xi\\Filelib'      => __DIR__ . '/../vendor/xi-filelib/library',
-    'Xi\\Bundle'      => __DIR__ . '/../vendor/bundles',
-    'PhpAmqpLib'      => __DIR__ . '/../vendor/phpAmqp',
-
+    'Xi\Filelib'       => __DIR__ . '/../vendor/xi-filelib/library',
+    'Xi\Bundle'        => __DIR__ . '/../vendor/bundles',
+    'PhpAmqpLib'       => __DIR__ . '/../vendor/phpAmqp',
+    'Zend'             => __DIR__ . '/../vendor/zend-framework/library',
 
 ));
 $loader->registerPrefixes(array(

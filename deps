@@ -74,3 +74,7 @@
 [phpAmqp]
     git=http://github.com/videlalvaro/php-amqplib.git
     version=origin/master
+
+[zend-framework]
+    git=http://github.com/zendframework/zf2.git
+    version=release-2.0.0beta4
