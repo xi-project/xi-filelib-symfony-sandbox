@@ -105,9 +105,6 @@ xi_filelib:
                 options:
                     filesPerDirectory: 500
                     directoryLevels: 3
-#                type: Xi\Filelib\Linker\BeautifurlLinker
-#                options:
-#                    slugify: false
                 accessToOriginal: true
                 publishOriginal: true
         versioned:
@@ -115,6 +112,8 @@ xi_filelib:
             description: 'Create web optimized versions'
             linker:
                 type: Xi\Filelib\Linker\BeautifurlLinker
+#                options:
+#                    slugify: false
                 accessToOriginal: true
                 publishOriginal: true
     plugins:
