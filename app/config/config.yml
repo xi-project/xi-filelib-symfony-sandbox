@@ -114,10 +114,7 @@ xi_filelib:
             identifier: versioned
             description: 'Create web optimized versions'
             linker:
-                type: Xi\Filelib\Linker\SequentialLinker
-                options:
-                    filesPerDirectory: 500
-                    directoryLevels: 3
+                type: Xi\Filelib\Linker\BeautifurlLinker
                 accessToOriginal: true
                 publishOriginal: true
     plugins:
