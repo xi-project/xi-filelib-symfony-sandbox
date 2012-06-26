@@ -70,6 +70,11 @@ xi_filelib:
         type: Xi\Filelib\Queue\PhpAMQPQueue
         arguments: [ "%amqp_host%", 5672, "%amqp_username%", "%amqp_password%", "filelib", "filelib_exchange", "filelib_queue" ]
 
+    slugifier:
+        type: Xi\Filelib\Tool\Slugifier\Zend2Slugifier
+    transliterator:
+        type: Xi\Filelib\Tool\Transliterator\StupidTransliterator
+        arguments: []
     renderer:
         accelerate: false
         stripPrefixFromAcceleratedPath: "%kernel.root_dir%/data/files"
@@ -100,22 +105,22 @@ xi_filelib:
         default:
             identifier: default
             description: 'Upload the original file, unmodified'
+            accessToOriginal: true
+            publishOriginal: true
             linker:
                 type: Xi\Filelib\Linker\SequentialLinker
                 options:
                     filesPerDirectory: 500
                     directoryLevels: 3
-                accessToOriginal: true
-                publishOriginal: true
         versioned:
             identifier: versioned
             description: 'Create web optimized versions'
+            accessToOriginal: true
+            publishOriginal: true
             linker:
                 type: Xi\Filelib\Linker\BeautifurlLinker
 #                options:
 #                    slugify: false
-                accessToOriginal: true
-                publishOriginal: true
     plugins:
         preformat:
             identifier: preformat
