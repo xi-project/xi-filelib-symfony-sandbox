@@ -70,6 +70,11 @@ xi_filelib:
         type: Xi\Filelib\Queue\PhpAMQPQueue
         arguments: [ "%amqp_host%", 5672, "%amqp_username%", "%amqp_password%", "filelib", "filelib_exchange", "filelib_queue" ]
 
+    slugifier:
+        type: Xi\Filelib\Tool\Slugifier\Zend2Slugifier
+    transliterator:
+        type: Xi\Filelib\Tool\Transliterator\StupidTransliterator
+        arguments: []
     renderer:
         accelerate: false
         stripPrefixFromAcceleratedPath: "%kernel.root_dir%/data/files"
