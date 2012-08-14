@@ -2,58 +2,24 @@
 
 namespace Filelib\Bundle\DemoBundle\Plugin;
 
-use Imagick;
-use Xi\Filelib\Configurator;
 use Xi\Filelib\File\File;
-use Xi\Filelib\Plugin\VersionProvider\AbstractVersionProvider;
-use Xi\Filelib\Plugin\Image\ImageMagickHelper;
+use Xi\Filelib\Plugin\Image\VersionPlugin as BaseVersionPlugin;
 
 /**
  * Versions an image
- *
  */
-class VersionPlugin extends AbstractVersionProvider
+class VersionPlugin extends BaseVersionPlugin
 {
-
-    protected $providesFor = array('image');
-
-    protected $imageMagickHelper;
-
-    /**
-     * @var File extension for the version
-     */
-    protected $extension;
-
-
     protected $commands = array();
-
-    public function __construct($options = array())
-    {
-        parent::__construct($options);
-    }
-
 
     public function setCommands($commands)
     {
         $this->commands = $commands;
     }
 
-
     public function getCommands()
     {
         return $this->commands;
-    }
-
-
-
-    /**
-     * Returns ImageMagick helper
-     *
-     * @return ImageMagickHelper
-     */
-    public function getImageMagickHelper()
-    {
-        return new ImageMagickHelper();
     }
 
     /**
@@ -63,10 +29,7 @@ class VersionPlugin extends AbstractVersionProvider
      */
     public function createVersions(File $file)
     {
-
-
         $data = $file->getData();
-
 
         $commands = $this->getCommands();
 
@@ -75,7 +38,6 @@ class VersionPlugin extends AbstractVersionProvider
         $ih = $this->getImageMagickHelper();
         $ih->setCommands($commands);
 
-
         // Todo: optimize
         $retrieved = $this->getStorage()->retrieve($file)->getPathname();
 
@@ -83,43 +45,9 @@ class VersionPlugin extends AbstractVersionProvider
 
         $ih->execute($img);
 
-        $tmp = $this->getFilelib()->getTempDir() . '/' . uniqid('', true);
+        $tmp = $this->getTempDir() . '/' . uniqid('', true);
         $img->writeImage($tmp);
 
         return array($this->getIdentifier() => $tmp);
     }
-
-    public function getVersions()
-    {
-        return array($this->identifier);
-    }
-
-    /**
-     * Sets file extension
-     *
-     * @param string $extension File extension
-     * @return VersionProvider
-     */
-    public function setExtension($extension)
-    {
-        $extension = str_replace('.', '', $extension);
-        $this->extension = $extension;
-        return $this;
-    }
-
-    /**
-     * Returns the plugins file extension
-     *
-     * @return string
-     */
-    public function getExtension()
-    {
-        return $this->extension;
-    }
-
-    public function getExtensionFor($version)
-    {
-        return $this->getExtension();
-    }
-
 }
