@@ -122,4 +122,17 @@ class VersionPlugin extends AbstractVersionProvider
         return $this->getExtension();
     }
 
+
+    public function areSharedVersionsAllowed()
+    {
+        return false;
+    }
+
+
+    public function isSharedResourceAllowed()
+    {
+        return true;
+    }
+
+
 }
