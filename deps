@@ -69,7 +69,7 @@
 [XiFilelibBundle]
     git=http://github.com/xi-project/xi-bundle-filelib.git
     target=/bundles/Xi/Bundle/FilelibBundle
-    version=origin/master
+    version=origin/2.0
 
 [phpAmqp]
     git=http://github.com/videlalvaro/php-amqplib.git
@@ -77,4 +77,4 @@
 
 [zend-framework]
     git=http://github.com/zendframework/zf2.git
-    version=release-2.0.0beta4
+    version=release-2.0.0rc3
