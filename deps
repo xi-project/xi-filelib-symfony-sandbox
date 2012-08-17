@@ -77,4 +77,4 @@
 
 [zend-framework]
     git=http://github.com/zendframework/zf2.git
-    version=release-2.0.0beta4
+    version=release-2.0.0rc3
