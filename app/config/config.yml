@@ -65,11 +65,9 @@ jms_security_extra:
     secure_all_services: false
 
 xi_filelib:
-
     queue:
         type: Xi\Filelib\Queue\PhpAMQPQueue
         arguments: [ "%amqp_host%", 5672, "%amqp_username%", "%amqp_password%", "filelib", "filelib_exchange", "filelib_queue" ]
-
     slugifier:
         type: Xi\Filelib\Tool\Slugifier\Zend2Slugifier
     transliterator:
@@ -82,10 +80,10 @@ xi_filelib:
     cache: default
     tempDir: %kernel.root_dir%/data/temp
     backend:
-        type: Xi\Filelib\Backend\Doctrine2Backend
-        key: doctrine.orm.default_entity_manager
-        fileEntity: Xi\Filelib\Backend\Doctrine2\Entity\File
-        folderEntity: Xi\Filelib\Backend\Doctrine2\Entity\Folder
+        doctrine_orm:
+            entity_manager: doctrine.orm.default_entity_manager
+            fileEntity: Xi\Filelib\Backend\Doctrine2\Entity\File
+            folderEntity: Xi\Filelib\Backend\Doctrine2\Entity\Folder
     storage_filesystem:
         directoryPermission: '775'
         filePermission: '644'
