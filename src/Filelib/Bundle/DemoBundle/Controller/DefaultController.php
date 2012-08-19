@@ -30,14 +30,13 @@ class DefaultController extends Controller
         $filelib = $this->get('filelib');
 
         // We want to upload curious manatee image.
-        $path = $this->get('kernel')->getRootDir() . "/data/uploads/curious-manatee.jpg";
+        $path = $this->get('kernel')->getRootDir() . "/data/uploads/west_indian_manatee_and_nursing_calf_crystal_river_florida.jpg";
 
         // Find root folder
         $folder = $filelib->getFolderOperator()->findRoot();
 
         // Prepare file for upload
         $upload = $filelib->getFileOperator()->prepareUpload($path);
-
 
 
         // Configure (optional) limiter to accept only images
@@ -62,6 +61,37 @@ class DefaultController extends Controller
         return $this->render('FilelibDemoBundle:Default:index.html.twig');
 
     }
+
+
+
+
+    public function selfishAction()
+    {
+        // Luss filelib from DI container
+        $filelib = $this->get('filelib');
+
+        // We want to upload curious manatee image.
+        $path = $this->get('kernel')->getRootDir() . "/data/uploads/west_indian_manatee_and_nursing_calf_crystal_river_florida.jpg";
+
+        // Find root folder
+        $folder = $filelib->getFolderOperator()->findRoot();
+
+        // Prepare file for upload
+        $upload = $filelib->getFileOperator()->prepareUpload($path);
+
+        $op = $filelib->getFileOperator();
+
+        $file = $op->upload($upload, $folder, 'selfish');
+
+        return $this->render('FilelibDemoBundle:Default:selfish.html.twig', array(
+            'fl' => $filelib,
+            'file' => $file,
+        ));
+
+        return $this->render('FilelibDemoBundle:Default:selfish.html.twig');
+
+    }
+
 
 
     public function asyncUploadTestAction()
