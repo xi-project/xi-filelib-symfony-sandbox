@@ -15,11 +15,9 @@ $loader->registerNamespaces(array(
     'Assetic'          => __DIR__.'/../vendor/assetic/src',
     'Metadata'         => __DIR__.'/../vendor/metadata/src',
     'Xi\\Filelib'      => __DIR__ . '/../vendor/xi-filelib/library',
-    'Xi\\Bundle'      => __DIR__ . '/../vendor/bundles',
-    'PhpAmqpLib'      => __DIR__ . '/../vendor/phpAmqp',
-    'Zend'            => __DIR__ . '/../vendor/zf2/library',
-
-
+    'Xi\\Bundle'       => __DIR__ . '/../vendor/bundles',
+    'PhpAmqpLib'       => __DIR__ . '/../vendor/phpAmqp',
+    'Zend'             => __DIR__ . '/../vendor/zf2/library',
 ));
 $loader->registerPrefixes(array(
     'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',

@@ -65,11 +65,14 @@ jms_security_extra:
     secure_all_services: false
 
 xi_filelib:
-
     queue:
         type: Xi\Filelib\Queue\PhpAMQPQueue
         arguments: [ "%amqp_host%", 5672, "%amqp_username%", "%amqp_password%", "filelib", "filelib_exchange", "filelib_queue" ]
-
+    slugifier:
+        type: Xi\Filelib\Tool\Slugifier\Zend2Slugifier
+    transliterator:
+        type: Xi\Filelib\Tool\Transliterator\StupidTransliterator
+        arguments: []
     renderer:
         accelerate: false
         stripPrefixFromAcceleratedPath: "%kernel.root_dir%/data/files"
@@ -77,10 +80,10 @@ xi_filelib:
     cache: default
     tempDir: %kernel.root_dir%/data/temp
     backend:
-        type: Xi\Filelib\Backend\Doctrine2Backend
-        key: doctrine.orm.default_entity_manager
-        fileEntity: Xi\Filelib\Backend\Doctrine2\Entity\File
-        folderEntity: Xi\Filelib\Backend\Doctrine2\Entity\Folder
+        doctrine_orm:
+            entity_manager: doctrine.orm.default_entity_manager
+            fileEntity: Xi\Filelib\Backend\Doctrine2\Entity\File
+            folderEntity: Xi\Filelib\Backend\Doctrine2\Entity\Folder
     storage_filesystem:
         directoryPermission: '775'
         filePermission: '644'
@@ -100,36 +103,32 @@ xi_filelib:
         default:
             identifier: default
             description: 'Upload the original file, unmodified'
+            accessToOriginal: true
+            publishOriginal: true
             linker:
                 type: Xi\Filelib\Linker\SequentialLinker
                 options:
                     filesPerDirectory: 500
                     directoryLevels: 3
-#                type: Xi\Filelib\Linker\BeautifurlLinker
-#                options:
-#                    slugify: false
-                accessToOriginal: true
-                publishOriginal: true
         versioned:
             identifier: versioned
             description: 'Create web optimized versions'
+            accessToOriginal: true
+            publishOriginal: true
             linker:
-                type: Xi\Filelib\Linker\SequentialLinker
-                options:
-                    filesPerDirectory: 500
-                    directoryLevels: 3
-                accessToOriginal: true
-                publishOriginal: true
+                type: Xi\Filelib\Linker\BeautifurlLinker
+#                options:
+#                    slugify: false
         selfish:
             identifier: selfish
             description: 'Create web optimized versions with a selfish twist'
+            accessToOriginal: true
+            publishOriginal: true
             linker:
                 type: Xi\Filelib\Linker\SequentialLinker
                 options:
                     filesPerDirectory: 500
                     directoryLevels: 3
-                accessToOriginal: true
-                publishOriginal: true
     plugins:
         preformat:
             identifier: preformat
