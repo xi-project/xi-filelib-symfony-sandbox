@@ -133,13 +133,18 @@ class DefaultController extends Controller
         $upload = $filelib->getFileOperator()->prepareUpload($path);
 
         $file = $filelib->getFileOperator()->upload($upload, $folder, 'versioned');
+        $file2 = $filelib->getFileOperator()->upload($upload, $folder, 'selfish');
 
-        $filelib->getFileOperator()->copy($file, $folder);
-        $filelib->getFileOperator()->copy($file, $folder);
-        $filelib->getFileOperator()->copy($file, $folder);
-        $file = $filelib->getFileOperator()->copy($file, $folder);
+        $file3 = $filelib->getFileOperator()->copy($file, $folder);
+        $file4 = $filelib->getFileOperator()->copy($file2, $folder);
 
+        echo "<pre>";
         var_dump($file);
+        var_dump($file3);
+
+        echo "<hr />";
+        var_dump($file2);
+        var_dump($file4);
         die();
 
     }
