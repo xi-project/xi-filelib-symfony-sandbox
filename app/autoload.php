@@ -17,7 +17,7 @@ $loader->registerNamespaces(array(
     'Xi\\Filelib'      => __DIR__ . '/../vendor/xi-filelib/library',
     'Xi\\Bundle'       => __DIR__ . '/../vendor/bundles',
     'PhpAmqpLib'       => __DIR__ . '/../vendor/phpAmqp',
-    'Zend'             => __DIR__ . '/../vendor/zf2/library',
+    'Zend'             => __DIR__ . '/../vendor/zend-framework/library',
 ));
 $loader->registerPrefixes(array(
     'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',

@@ -119,21 +119,21 @@ xi_filelib:
                 type: Xi\Filelib\Linker\BeautifurlLinker
 #                options:
 #                    slugify: false
-        selfish:
-            identifier: selfish
-            description: 'Create web optimized versions with a selfish twist'
-            accessToOriginal: true
-            publishOriginal: true
-            linker:
-                type: Xi\Filelib\Linker\SequentialLinker
-                options:
-                    filesPerDirectory: 500
-                    directoryLevels: 3
+#        selfish:
+#            identifier: selfish
+#            description: 'Create web optimized versions with a selfish twist'
+#            accessToOriginal: true
+#            publishOriginal: true
+#            linker:
+#                type: Xi\Filelib\Linker\SequentialLinker
+#                options:
+#                    filesPerDirectory: 500
+#                    directoryLevels: 3
     plugins:
         preformat:
             identifier: preformat
             type: Xi\Filelib\Plugin\Image\ChangeFormatPlugin
-            profiles: [versioned, selfish]
+            profiles: [versioned]
             targetExtension: jpg
             imageMagickOptions:
                 ImageCompression: 8
@@ -169,47 +169,47 @@ xi_filelib:
                     type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
                     method: scaleImage
                     parameters: [ 320, 200, 1]
-        puuppa:
-            identifier: puuppa
-            type: Filelib\Bundle\DemoBundle\Plugin\VersionPlugin
-            profiles: [versioned, selfish]
-            imageMagickOptions:
-                ImageCompression: 8
-                ImageFormat: jpg
-                ImageCompressionQuality: 30
-            extension: jpg
-            commands:
-                scale:
-                    type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
-                    method: scaleImage
-                    parameters: [ 320, 200, 1]
-                modulate:
-                    type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
-                    method: modulateImage
-                    parameters: [ 100, 0, 0 ]
-        selfish:
-            identifier: selfish
-            type: Filelib\Bundle\DemoBundle\Plugin\SelfishVersionPlugin
-            profiles: [ selfish ]
-            imageMagickOptions:
-                ImageCompression: 8
-                ImageFormat: jpg
-                ImageCompressionQuality: 30
-            extension: jpg
-            commands:
-                scale:
-                    type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
-                    method: scaleImage
-                    parameters: [ 320, 200, 1]
-                modulate:
-                    type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
-                    method: modulateImage
-                    parameters: [ 100, 0, 0 ]
+#        puuppa:
+#            identifier: puuppa
+#            type: Filelib\Bundle\DemoBundle\Plugin\VersionPlugin
+#            profiles: [versioned]
+#            imageMagickOptions:
+#                ImageCompression: 8
+#                ImageFormat: jpg
+#                ImageCompressionQuality: 30
+#            extension: jpg
+#            commands:
+#                scale:
+#                    type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
+#                    method: scaleImage
+#                    parameters: [ 320, 200, 1]
+#                modulate:
+#                    type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
+#                    method: modulateImage
+#                    parameters: [ 100, 0, 0 ]
+#        selfish:
+#            identifier: selfish
+#            type: Filelib\Bundle\DemoBundle\Plugin\SelfishVersionPlugin
+#            profiles: [ selfish ]
+#            imageMagickOptions:
+#                ImageCompression: 8
+#                ImageFormat: jpg
+#                ImageCompressionQuality: 30
+#            extension: jpg
+#            commands:
+#                scale:
+#                    type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
+#                    method: scaleImage
+#                    parameters: [ 320, 200, 1]
+#                modulate:
+#                    type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
+#                    method: modulateImage
+#                    parameters: [ 100, 0, 0 ]
 
         cropped:
             identifier: cropped
             type: Xi\Filelib\Plugin\Image\VersionPlugin
-            profiles: [versioned, selfish]
+            profiles: [versioned]
             imageMagickOptions:
                 ImageCompression: 8
                 ImageFormat: jpg
@@ -223,7 +223,7 @@ xi_filelib:
         cinemascope:
             identifier: cinemascope
             type: Xi\Filelib\Plugin\Image\VersionPlugin
-            profiles: [versioned, selfish]
+            profiles: [versioned]
             imageMagickOptions:
                 ImageCompression: 8
                 ImageFormat: jpg
@@ -241,7 +241,7 @@ xi_filelib:
         thumb:
             identifier: thumb
             type: Xi\Filelib\Plugin\Image\VersionPlugin
-            profiles: [versioned, selfish]
+            profiles: [versioned]
             imageMagickOptions:
                 ImageCompression: '8'
                 ImageFormat: jpg
