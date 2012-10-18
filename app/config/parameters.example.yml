@@ -1,0 +1,24 @@
+parameters:
+    database_driver:   pdo_pgsql
+    database_host:     localhost
+    database_port:     ~
+    database_name:     filelib_demo
+    database_user:     root
+    database_password: ~
+
+    mailer_transport:  smtp
+    mailer_host:       localhost
+    mailer_user:       ~
+    mailer_password:   ~
+
+    locale:            en
+    secret:            ThisTokenIsNotSoSecretChangeIt
+
+    amqp_username: ~
+    amqp_password: ~
+    amqp_host: ~
+
+    zencoder_key: ~
+    s3_key: ~
+    s3_secretkey: ~
+    s3_bucket: ~
