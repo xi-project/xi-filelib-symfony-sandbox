@@ -72,10 +72,10 @@
 
 [xi-filelib]
     git=http://github.com/xi-project/xi-filelib.git
-    version=origin/file-resource-refactor
+    version=v0.7.0
 
 [XiFilelibBundle]
     git=http://github.com/xi-project/xi-bundle-filelib.git
     target=/bundles/Xi/Bundle/FilelibBundle
-    version=origin/file-resource-refactor
+    version=v0.7.1
 
