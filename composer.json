@@ -14,6 +14,8 @@
 
     "require": {
         "php": ">=5.3.3",
+        "xi/filelib": "0.7.*",
+        "xi/filelib-bundle": "0.7.*",
         "symfony/symfony": "2.1.*",
         "doctrine/orm": ">=2.2.3,<2.4-dev",
         "doctrine/doctrine-bundle": "1.0.*",
@@ -26,8 +28,6 @@
         "sensio/generator-bundle": "2.1.*",
         "jms/security-extra-bundle": "1.2.*",
         "jms/di-extra-bundle": "1.1.*",
-        "xi/filelib": "dev-file-resource-refactor",
-        "xi/filelib-bundle": "dev-file-resource-refactor",
         "zendframework/zend-filter": "2.0.*",
         "zendframework/zend-stdlib": "2.0.*",
         "zendframework/zend-i18n": "2.0.*"
