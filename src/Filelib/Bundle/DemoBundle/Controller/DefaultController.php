@@ -30,14 +30,13 @@ class DefaultController extends Controller
         $filelib = $this->get('filelib');
 
         // We want to upload curious manatee image.
-        $path = $this->get('kernel')->getRootDir() . "/data/uploads/curious-manatee.jpg";
+        $path = $this->get('kernel')->getRootDir() . "/data/uploads/west_indian_manatee_and_nursing_calf_crystal_river_florida.jpg";
 
         // Find root folder
         $folder = $filelib->getFolderOperator()->findRoot();
 
         // Prepare file for upload
         $upload = $filelib->getFileOperator()->prepareUpload($path);
-
 
 
         // Configure (optional) limiter to accept only images
@@ -64,6 +63,37 @@ class DefaultController extends Controller
     }
 
 
+
+
+    public function selfishAction()
+    {
+        // Luss filelib from DI container
+        $filelib = $this->get('filelib');
+
+        // We want to upload curious manatee image.
+        $path = $this->get('kernel')->getRootDir() . "/data/uploads/west_indian_manatee_and_nursing_calf_crystal_river_florida.jpg";
+
+        // Find root folder
+        $folder = $filelib->getFolderOperator()->findRoot();
+
+        // Prepare file for upload
+        $upload = $filelib->getFileOperator()->prepareUpload($path);
+
+        $op = $filelib->getFileOperator();
+
+        $file = $op->upload($upload, $folder, 'selfish');
+
+        return $this->render('FilelibDemoBundle:Default:selfish.html.twig', array(
+            'fl' => $filelib,
+            'file' => $file,
+        ));
+
+        return $this->render('FilelibDemoBundle:Default:selfish.html.twig');
+
+    }
+
+
+
     public function asyncUploadTestAction()
     {
         $filelib = $this->get('filelib');
@@ -76,7 +106,7 @@ class DefaultController extends Controller
 
         $filelib->getFileOperator()->setCommandStrategy(DefaultFileOperator::COMMAND_UPLOAD, Command::STRATEGY_ASYNCHRONOUS);
 
-        for ($x = 1; $x <= 100; $x++) {
+        for ($x = 1; $x <= 10; $x++) {
             foreach ($iter as $key => $file) {
                 if ($file->isFile()) {
                     $filelib->getFileOperator()->upload($file->getRealPath(), $folder, 'versioned');
@@ -103,13 +133,18 @@ class DefaultController extends Controller
         $upload = $filelib->getFileOperator()->prepareUpload($path);
 
         $file = $filelib->getFileOperator()->upload($upload, $folder, 'versioned');
+        $file2 = $filelib->getFileOperator()->upload($upload, $folder, 'selfish');
 
-        $filelib->getFileOperator()->copy($file, $folder);
-        $filelib->getFileOperator()->copy($file, $folder);
-        $filelib->getFileOperator()->copy($file, $folder);
-        $file = $filelib->getFileOperator()->copy($file, $folder);
+        $file3 = $filelib->getFileOperator()->copy($file, $folder);
+        $file4 = $filelib->getFileOperator()->copy($file2, $folder);
 
+        echo "<pre>";
         var_dump($file);
+        var_dump($file3);
+
+        echo "<hr />";
+        var_dump($file2);
+        var_dump($file4);
         die();
 
     }

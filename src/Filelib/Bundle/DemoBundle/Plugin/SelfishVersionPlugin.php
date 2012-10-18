@@ -12,7 +12,7 @@ use Xi\Filelib\Plugin\Image\ImageMagickHelper;
  * Versions an image
  *
  */
-class VersionPlugin extends AbstractVersionProvider
+class SelfishVersionPlugin extends AbstractVersionProvider
 {
 
     protected $providesFor = array('image');
@@ -131,7 +131,7 @@ class VersionPlugin extends AbstractVersionProvider
 
     public function isSharedResourceAllowed()
     {
-        return true;
+        return false;
     }
 
 

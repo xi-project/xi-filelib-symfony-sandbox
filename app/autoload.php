@@ -3,8 +3,6 @@
 use Symfony\Component\ClassLoader\UniversalClassLoader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 
-set_include_path(get_include_path() . PATH_SEPARATOR . __DIR__ . '/../src');
-
 $loader = new UniversalClassLoader();
 $loader->registerNamespaces(array(
     'Symfony'          => array(__DIR__.'/../vendor/symfony/src', __DIR__.'/../vendor/bundles'),
@@ -16,17 +14,15 @@ $loader->registerNamespaces(array(
     'Monolog'          => __DIR__.'/../vendor/monolog/src',
     'Assetic'          => __DIR__.'/../vendor/assetic/src',
     'Metadata'         => __DIR__.'/../vendor/metadata/src',
-    'Xi\Filelib'       => __DIR__ . '/../vendor/xi-filelib/library',
-    'Xi\Bundle'        => __DIR__ . '/../vendor/bundles',
+    'Xi\\Filelib'      => __DIR__ . '/../vendor/xi-filelib/library',
+    'Xi\\Bundle'       => __DIR__ . '/../vendor/bundles',
     'PhpAmqpLib'       => __DIR__ . '/../vendor/phpAmqp',
     'Zend'             => __DIR__ . '/../vendor/zend-framework/library',
-
 ));
 $loader->registerPrefixes(array(
     'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',
     'Twig_'            => __DIR__.'/../vendor/twig/lib',
     'Services_'            => __DIR__.'/../src',
-    'Zend_'            => __DIR__.'/../src',
 ));
 
 // intl
