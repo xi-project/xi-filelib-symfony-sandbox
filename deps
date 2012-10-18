@@ -68,7 +68,7 @@
 
 [zend-framework]
     git=http://github.com/zendframework/zf2.git
-    version=release-2.0.0rc3
+    version=release-2.0.3
 
 [xi-filelib]
     git=http://github.com/xi-project/xi-filelib.git
