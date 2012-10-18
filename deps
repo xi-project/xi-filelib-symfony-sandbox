@@ -64,12 +64,12 @@
 
 [xi-filelib]
     git=http://github.com/xi-project/xi-filelib.git
-    version=origin/master
+    version=origin/file-resource-refactor
 
 [XiFilelibBundle]
     git=http://github.com/xi-project/xi-bundle-filelib.git
     target=/bundles/Xi/Bundle/FilelibBundle
-    version=origin/2.0
+    version=origin/file-resource-refactor
 
 [phpAmqp]
     git=http://github.com/videlalvaro/php-amqplib.git
