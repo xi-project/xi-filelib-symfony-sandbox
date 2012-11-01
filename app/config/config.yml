@@ -1,20 +1,21 @@
 imports:
-    - { resource: parameters.ini }
+    - { resource: parameters.yml }
     - { resource: security.yml }
 
 framework:
     #esi:             ~
     #translator:      { fallback: %locale% }
     secret:          %secret%
-    charset:         UTF-8
-    router:          { resource: "%kernel.root_dir%/config/routing.yml" }
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: %kernel.debug%
     form:            true
     csrf_protection: true
     validation:      { enable_annotations: true }
     templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
-    session:
-        default_locale: %locale%
-        auto_start:     true
+    default_locale:  %locale%
+    trust_proxy_headers: false # Whether or not the Request object should trust proxy headers (X_FORWARDED_FOR/HTTP_CLIENT_IP)
+    session:         ~
 
 # Twig Configuration
 twig:
@@ -25,13 +26,14 @@ twig:
 assetic:
     debug:          %kernel.debug%
     use_controller: false
-    # java: /usr/bin/java
+    bundles:        [ ]
+    #java: /usr/bin/java
     filters:
         cssrewrite: ~
-        # closure:
-        #     jar: %kernel.root_dir%/java/compiler.jar
-        # yui_css:
-        #     jar: %kernel.root_dir%/java/yuicompressor-2.4.2.jar
+        #closure:
+        #    jar: %kernel.root_dir%/Resources/java/compiler.jar
+        #yui_css:
+        #    jar: %kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar
 
 # Doctrine Configuration
 doctrine:
@@ -49,9 +51,10 @@ doctrine:
         auto_mapping: true
         mappings:
             xi_filelib:
-                dir:    %kernel.root_dir%/../vendor/xi-filelib/library/Xi/Filelib/Backend/Doctrine2/Entity
+                dir:    %kernel.root_dir%/../vendor/xi/filelib/library/Xi/Filelib/Backend/Doctrine2/Entity
                 prefix: Xi\Filelib\Backend\Doctrine2\Entity
                 type:   annotation
+                is_bundle: false
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -59,17 +62,12 @@ swiftmailer:
     host:      %mailer_host%
     username:  %mailer_user%
     password:  %mailer_password%
-
-jms_security_extra:
-    secure_controllers:  true
-    secure_all_services: false
+    spool:     { type: memory }
 
 xi_filelib:
-
     queue:
         type: Xi\Filelib\Queue\PhpAMQPQueue
         arguments: [ "%amqp_host%", 5672, "%amqp_username%", "%amqp_password%", "filelib", "filelib_exchange", "filelib_queue" ]
-
     slugifier:
         type: Xi\Filelib\Tool\Slugifier\Zend2Slugifier
     transliterator:
@@ -82,10 +80,10 @@ xi_filelib:
     cache: default
     tempDir: %kernel.root_dir%/data/temp
     backend:
-        type: Xi\Filelib\Backend\Doctrine2Backend
-        key: doctrine.orm.default_entity_manager
-        fileEntity: Xi\Filelib\Backend\Doctrine2\Entity\File
-        folderEntity: Xi\Filelib\Backend\Doctrine2\Entity\Folder
+        doctrine_orm:
+            entity_manager: doctrine.orm.default_entity_manager
+            fileEntity: Xi\Filelib\Backend\Doctrine2\Entity\File
+            folderEntity: Xi\Filelib\Backend\Doctrine2\Entity\Folder
     storage_filesystem:
         directoryPermission: '775'
         filePermission: '644'

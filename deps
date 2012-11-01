@@ -62,6 +62,14 @@
     target=/bundles/Symfony/Bundle/AsseticBundle
     version=v1.0.1
 
+[phpAmqp]
+    git=http://github.com/videlalvaro/php-amqplib.git
+    version=origin/master
+
+[zend-framework]
+    git=http://github.com/zendframework/zf2.git
+    version=release-2.0.0rc3
+
 [xi-filelib]
     git=http://github.com/xi-project/xi-filelib.git
     version=origin/master
@@ -69,11 +77,7 @@
 [XiFilelibBundle]
     git=http://github.com/xi-project/xi-bundle-filelib.git
     target=/bundles/Xi/Bundle/FilelibBundle
-    version=origin/master
-
-[phpAmqp]
-    git=http://github.com/videlalvaro/php-amqplib.git
-    version=origin/master
+    version=origin/2.0
 
 [zend-framework]
     git=http://github.com/zendframework/zf2.git

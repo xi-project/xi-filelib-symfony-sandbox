@@ -39,7 +39,7 @@ class VersionPlugin extends BaseVersionPlugin
         $ih->setCommands($commands);
 
         // Todo: optimize
-        $retrieved = $this->getStorage()->retrieve($file)->getPathname();
+        $retrieved = $this->getStorage()->retrieve($file->getResource())->getPathname();
 
         $img = $ih->createImagick($retrieved);
 
@@ -49,5 +49,10 @@ class VersionPlugin extends BaseVersionPlugin
         $img->writeImage($tmp);
 
         return array($this->getIdentifier() => $tmp);
+    }
+
+    public function areSharedVersionsAllowed()
+    {
+        return false;
     }
 }
