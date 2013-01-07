@@ -7,3 +7,27 @@ services:
         arguments: [ ]
         tags:
             - { name: filelib.event.listener }
+    filelib.puuppaplugin:
+        class: Filelib\Bundle\DemoBundle\Plugin\VersionPlugin
+        arguments:
+            - @filelib.storage
+            - @filelib.publisher
+            - @filelib.fileoperator
+            - identifier: puuppa
+              profiles: [versioned]
+              imageMagickOptions:
+                  ImageCompression: 8
+                  ImageFormat: jpg
+                  ImageCompressionQuality: 30
+              extension: jpg
+              commands:
+                  scale:
+                      type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
+                      method: scaleImage
+                      parameters: [ 320, 200, 1]
+                  modulate:
+                      type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
+                      method: modulateImage
+                      parameters: [ 100, 0, 0 ]
+        tags:
+            - { name: filelib.plugin }

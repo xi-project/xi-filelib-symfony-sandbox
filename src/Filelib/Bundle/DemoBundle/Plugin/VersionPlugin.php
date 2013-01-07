@@ -27,12 +27,6 @@ class VersionPlugin extends AbstractVersionProvider
 
     protected $commands = array();
 
-    public function __construct($options = array())
-    {
-        parent::__construct($options);
-    }
-
-
     public function setCommands($commands)
     {
         $this->commands = $commands;
@@ -83,7 +77,7 @@ class VersionPlugin extends AbstractVersionProvider
 
         $ih->execute($img);
 
-        $tmp = $this->getFilelib()->getTempDir() . '/' . uniqid('', true);
+        $tmp = $this->fileOperator->getFilelib()->getTempDir() . '/' . uniqid('', true);
         $img->writeImage($tmp);
 
         return array($this->getIdentifier() => $tmp);
