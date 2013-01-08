@@ -3,8 +3,8 @@
 namespace Filelib\Bundle\DemoBundle\Service;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Xi\Filelib\Event\FilelibEvent;
-use Xi\Filelib\Event\FileEvent;
+use Xi\Filelib\Event\IdentifiableEvent;
+use Xi\Filelib\File\File;
 
 class FilelibConfiguratorService implements EventSubscriberInterface
 {
@@ -17,24 +17,21 @@ class FilelibConfiguratorService implements EventSubscriberInterface
     static public function getSubscribedEvents()
     {
         return array(
-            'file.instantiate' => 'onFileInstantiate',
-            'file.upload' => 'onFileInstantiate',
+            'identitymap.before_add' => 'onIdentityMapAdd',
         );
     }
 
-
-    public function onFileInstantiate(FileEvent $event)
+    public function onIdentityMapAdd(IdentifiableEvent $event)
     {
-        $file = $event->getFile();
+        $obj = $event->getIdentifiable();
 
-        $data = $file->getData();
+        if (!$obj instanceof File) {
+            return;
+        }
 
+        $data = $obj->getData();
         $width = rand(200, 800);
         $height = rand(200, 800);
-
         $data['plugin.testplugin'] = array($width, $height, false);
-
     }
-
-
 }

@@ -27,12 +27,6 @@ class SelfishVersionPlugin extends AbstractVersionProvider
 
     protected $commands = array();
 
-    public function __construct($options = array())
-    {
-        parent::__construct($options);
-    }
-
-
     public function setCommands($commands)
     {
         $this->commands = $commands;
