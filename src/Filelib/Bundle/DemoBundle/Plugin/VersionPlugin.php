@@ -24,7 +24,6 @@ class VersionPlugin extends AbstractVersionProvider
      */
     protected $extension;
 
-
     protected $commands = array();
 
     public function setCommands($commands)
@@ -57,8 +56,6 @@ class VersionPlugin extends AbstractVersionProvider
      */
     public function createVersions(File $file)
     {
-
-
         $data = $file->getData();
 
 
