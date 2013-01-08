@@ -7,18 +7,21 @@ services:
         arguments: [ ]
         tags:
             - { name: filelib.event.listener }
-    filelib.puuppaplugin:
+
+    filelib.plugin.puuppa:
         class: Filelib\Bundle\DemoBundle\Plugin\VersionPlugin
         arguments:
             - @filelib.storage
             - @filelib.publisher
             - @filelib.fileoperator
-            - identifier: puuppa
+            - %kernel.root_dir%/data/temp
+            -
+              identifier: puuppa
               profiles: [versioned]
               imageMagickOptions:
                   ImageCompression: 8
                   ImageFormat: jpg
-                  ImageCompressionQuality: 30
+                  ImageCompressionQuality: 50
               extension: jpg
               commands:
                   scale:
