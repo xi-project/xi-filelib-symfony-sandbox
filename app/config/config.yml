@@ -51,8 +51,8 @@ doctrine:
         auto_mapping: true
         mappings:
             xi_filelib:
-                dir:    %kernel.root_dir%/../vendor/xi/filelib/library/Xi/Filelib/Backend/Doctrine2/Entity
-                prefix: Xi\Filelib\Backend\Doctrine2\Entity
+                dir:    %kernel.root_dir%/../vendor/xi/filelib/library/Xi/Filelib/Backend/Platform/DoctrineOrm/Entity
+                prefix: Xi\Filelib\Backend\Platform\DoctrineOrm\Entity
                 type:   annotation
                 is_bundle: false
 
@@ -80,10 +80,11 @@ xi_filelib:
     cache: default
     tempDir: %kernel.root_dir%/data/temp
     backend:
-        doctrine_orm:
-            entity_manager: doctrine.orm.default_entity_manager
-            fileEntity: Xi\Filelib\Backend\Doctrine2\Entity\File
-            folderEntity: Xi\Filelib\Backend\Doctrine2\Entity\Folder
+        platform:
+            doctrine_orm:
+                entity_manager: doctrine.orm.default_entity_manager
+                fileEntity: Xi\Filelib\Backend\Platform\DoctrineOrm\Entity\File
+                folderEntity: Xi\Filelib\Backend\Platform\DoctrineOrm\Entity\Folder
     storage_filesystem:
         directoryPermission: '775'
         filePermission: '644'
@@ -159,24 +160,6 @@ xi_filelib:
                     type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
                     method: scaleImage
                     parameters: [ 320, 200, 1]
-        puuppa:
-            identifier: puuppa
-            type: Filelib\Bundle\DemoBundle\Plugin\VersionPlugin
-            profiles: [versioned]
-            imageMagickOptions:
-                ImageCompression: 8
-                ImageFormat: jpg
-                ImageCompressionQuality: 30
-            extension: jpg
-            commands:
-                scale:
-                    type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
-                    method: scaleImage
-                    parameters: [ 320, 200, 1]
-                modulate:
-                    type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
-                    method: modulateImage
-                    parameters: [ 100, 0, 0 ]
         cropped:
             identifier: cropped
             type: Xi\Filelib\Plugin\Image\VersionPlugin

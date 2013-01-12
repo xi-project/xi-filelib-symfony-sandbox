@@ -14,12 +14,13 @@
 
     "require": {
         "php": ">=5.3.3",
-        "xi/filelib": "0.7.*",
-        "xi/filelib-bundle": "0.7.*",
+        "xi/filelib": "0.8.*@dev",
+        "xi/filelib-bundle": "0.8.*@dev",
         "symfony/symfony": "2.1.*",
         "doctrine/orm": ">=2.2.3,<2.4-dev",
         "doctrine/doctrine-bundle": "1.0.*",
-        "twig/extensions": "1.0.*",
+        "twig/extensions": "1.0.*@dev",
+        "kriswallsmith/assetic": "@alpha",
         "symfony/assetic-bundle": "2.1.*",
         "symfony/swiftmailer-bundle": "2.1.*",
         "symfony/monolog-bundle": "2.1.*",
@@ -30,7 +31,8 @@
         "jms/di-extra-bundle": "1.1.*",
         "zendframework/zend-filter": "2.0.*",
         "zendframework/zend-stdlib": "2.0.*",
-        "zendframework/zend-i18n": "2.0.*"
+        "zendframework/zend-i18n": "2.0.*",
+        "zendframework/zendservice-amazon": "2.0.*"
     },
     "scripts": {
         "post-install-cmd": [
@@ -46,7 +48,7 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
         ]
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "extra": {
         "symfony-app-dir": "app",
         "symfony-web-dir": "web"
