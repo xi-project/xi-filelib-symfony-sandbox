@@ -7,14 +7,14 @@ use Xi\Filelib\Renderer\SymfonyRenderer;
 use Symfony\Component\HttpFoundation\Response;
 use Xi\Filelib\File\DefaultFileOperator;
 use Xi\Filelib\Command;
+use Xi\Filelib\FileLibrary;
 
 class DefaultController extends Controller
 {
 
     public function clearAction()
     {
-        // Luss filelib from DI container
-        $filelib = $this->get('filelib');
+        $filelib = $this->getFilelib();
 
         foreach ($filelib->getFileOperator()->findAll() as $file) {
             $filelib->getFileOperator()->delete($file);
@@ -26,9 +26,7 @@ class DefaultController extends Controller
 
     public function indexAction()
     {
-        // Luss filelib from DI container
-        $filelib = $this->get('filelib');
-
+        $filelib = $this->getFilelib();
         // We want to upload curious manatee image.
         $path = $this->get('kernel')->getRootDir() . "/data/uploads/west_indian_manatee_and_nursing_calf_crystal_river_florida.jpg";
 
@@ -67,8 +65,7 @@ class DefaultController extends Controller
 
     public function selfishAction()
     {
-        // Luss filelib from DI container
-        $filelib = $this->get('filelib');
+        $filelib = $this->getFilelib();
 
         // We want to upload curious manatee image.
         $path = $this->get('kernel')->getRootDir() . "/data/uploads/west_indian_manatee_and_nursing_calf_crystal_river_florida.jpg";
@@ -96,7 +93,7 @@ class DefaultController extends Controller
 
     public function asyncUploadTestAction()
     {
-        $filelib = $this->get('filelib');
+        $filelib = $this->getFilelib();
 
         $iter = new \DirectoryIterator($this->get('kernel')->getRootDir() . '/data/uploads');
 
@@ -120,8 +117,7 @@ class DefaultController extends Controller
 
     public function copyTestAction()
     {
-        // Luss filelib from DI container
-        $filelib = $this->get('filelib');
+        $filelib = $this->getFilelib();
 
         // We want to upload curious manatee image.
         $path = $this->get('kernel')->getRootDir() . "/data/uploads/curious-manatee.jpg";
@@ -152,9 +148,7 @@ class DefaultController extends Controller
 
     public function testSuiteAction()
     {
-        // Luss filelib from DI container
-        $filelib = $this->get('filelib');
-
+        $filelib = $this->getFilelib();
 
         $root = $filelib->getFolderOperator()->findRoot();
 
@@ -210,8 +204,7 @@ class DefaultController extends Controller
 
     public function videoTestAction()
     {
-        // Luss filelib from DI container
-        $filelib = $this->get('filelib');
+        $filelib = $this->getFilelib();
 
         // We want to upload curious manatee image.
         $path = $this->get('kernel')->getRootDir() . "/../vendor/xi-filelib/tests/data/hauska-joonas.mp4";
@@ -231,6 +224,14 @@ class DefaultController extends Controller
 
         return new Response('Video upload was pooped to the queue');
 
+    }
+
+    /**
+     * @return FileLibrary
+     */
+    protected function getFilelib()
+    {
+        return $this->get('xi_filelib');
     }
 
 
