@@ -17,7 +17,7 @@ class FilelibConfiguratorService implements EventSubscriberInterface
     static public function getSubscribedEvents()
     {
         return array(
-            'identitymap.before_add' => 'onIdentityMapAdd',
+            'xi_filelib.identitymap.before_add' => 'onIdentityMapAdd',
         );
     }
 
@@ -30,8 +30,13 @@ class FilelibConfiguratorService implements EventSubscriberInterface
         }
 
         $data = $obj->getData();
+
         $width = rand(200, 800);
         $height = rand(200, 800);
         $data['plugin.testplugin'] = array($width, $height, false);
+
+        $width2 = rand(200, 800);
+        $height2 = rand(200, 800);
+        $data['plugin.selfishplugin'] = array($width2, $height2, false);
     }
 }
