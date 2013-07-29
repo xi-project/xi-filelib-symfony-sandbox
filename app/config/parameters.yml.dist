@@ -1,5 +1,4 @@
 parameters:
-
     database_driver:   pdo_mysql
     database_host:     127.0.0.1
     database_port:     ~
@@ -14,12 +13,3 @@ parameters:
 
     locale:            en
     secret:            ThisTokenIsNotSoSecretChangeIt
-
-    amqp_username: ~
-    amqp_password: ~
-    amqp_host: ~
-
-    zencoder_key: ~
-    s3_key: ~
-    s3_secretkey: ~
-    s3_bucket: ~

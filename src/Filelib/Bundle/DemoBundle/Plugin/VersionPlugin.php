@@ -12,16 +12,6 @@ class VersionPlugin extends BaseVersionPlugin
 {
     protected $commands = array();
 
-    public function setCommands($commands)
-    {
-        $this->commands = $commands;
-    }
-
-    public function getCommands()
-    {
-        return $this->commands;
-    }
-
     /**
      * Creates and stores version
      *
@@ -29,25 +19,26 @@ class VersionPlugin extends BaseVersionPlugin
      */
     public function createVersions(File $file)
     {
+
         $data = $file->getData();
-        $commands = $this->getCommands();
 
-        $commands['scale']['parameters'] = $data['plugin.testplugin'];
-
-        $ih = $this->getImageMagickHelper();
-        $ih->setCommands($commands);
+        $replacementParameters = $data['plugin.testplugin'];
+        $command = $this->imageMagickHelper->getCommand(3);
+        $command->setParameters($replacementParameters);
 
         // Todo: optimize
-        $retrieved = $this->getStorage()->retrieve($file->getResource())->getPathname();
+        $retrieved = $this->getStorage()->retrieve($file->getResource());
 
-        $img = $ih->createImagick($retrieved);
+        $img = $this->imageMagickHelper->createImagick($retrieved);
 
-        $ih->execute($img);
+        $this->imageMagickHelper->execute($img);
 
         $tmp = $this->getTempDir() . '/' . uniqid('', true);
         $img->writeImage($tmp);
 
-        return array($this->getIdentifier() => $tmp);
+        return array(
+            $this->getIdentifier() => $tmp
+        );
     }
 
     public function areSharedVersionsAllowed()

@@ -1,6 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: filelib.yml }
 
 framework:
     #esi:             ~
@@ -8,14 +9,18 @@ framework:
     secret:          %secret%
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
-        strict_requirements: %kernel.debug%
-    form:            true
-    csrf_protection: true
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
     validation:      { enable_annotations: true }
-    templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
-    default_locale:  %locale%
-    trust_proxy_headers: false # Whether or not the Request object should trust proxy headers (X_FORWARDED_FOR/HTTP_CLIENT_IP)
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
+    default_locale:  "%locale%"
+    trusted_proxies: ~
     session:         ~
+    fragments:       ~
+    http_method_override: true
 
 # Twig Configuration
 twig:
@@ -45,16 +50,13 @@ doctrine:
         user:     %database_user%
         password: %database_password%
         charset:  UTF8
+        # if using pdo_sqlite as your database driver, add the path in parameters.yml
+        # e.g. database_path: %kernel.root_dir%/data/data.db3
+        # path:     %database_path%
 
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
-        mappings:
-            xi_filelib:
-                dir:    %kernel.root_dir%/../vendor/xi/filelib/library/Xi/Filelib/Backend/Platform/DoctrineOrm/Entity
-                prefix: Xi\Filelib\Backend\Platform\DoctrineOrm\Entity
-                type:   annotation
-                is_bundle: false
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -64,169 +66,4 @@ swiftmailer:
     password:  %mailer_password%
     spool:     { type: memory }
 
-xi_filelib:
-    queue:
-        type: Xi\Filelib\Queue\PhpAMQPQueue
-        arguments: [ "%amqp_host%", 5672, "%amqp_username%", "%amqp_password%", "filelib", "filelib_exchange", "filelib_queue" ]
-    slugifier:
-        type: Xi\Filelib\Tool\Slugifier\Zend2Slugifier
-    transliterator:
-        type: Xi\Filelib\Tool\Transliterator\StupidTransliterator
-        arguments: []
-    renderer:
-        accelerate: false
-        stripPrefixFromAcceleratedPath: "%kernel.root_dir%/data/files"
-        addPrefixToAcceleratedPath: "/protected"
-    cache: default
-    tempDir: %kernel.root_dir%/data/temp
-    backend:
-        platform:
-            doctrine_orm:
-                entity_manager: doctrine.orm.default_entity_manager
-                fileEntity: Xi\Filelib\Backend\Platform\DoctrineOrm\Entity\File
-                folderEntity: Xi\Filelib\Backend\Platform\DoctrineOrm\Entity\Folder
-    storage_filesystem:
-        directoryPermission: '775'
-        filePermission: '644'
-        root: %kernel.root_dir%/data/files
-        directoryIdCalculator:
-#            type: Xi\Filelib\Storage\Filesystem\DirectoryIdCalculator\TimeDirectoryIdCalculator
-#            options: { format: Y/m/d }
-            type: Xi\Filelib\Storage\Filesystem\DirectoryIdCalculator\LeveledDirectoryIdCalculator
-            options: { directoryLevels: 3, filesPerDirectory: 500 }
-    publisher:
-        type: Xi\Filelib\Publisher\Filesystem\SymlinkFilesystemPublisher
-        options:
-            relativePathToRoot: ../../app/data/files
-            baseUrl: /files
-            publicRoot: %kernel.root_dir%/../web/files
-    profiles:
-        default:
-            identifier: default
-            description: 'Upload the original file, unmodified'
-            accessToOriginal: true
-            publishOriginal: true
-            linker:
-                type: Xi\Filelib\Linker\SequentialLinker
-                options:
-                    filesPerDirectory: 500
-                    directoryLevels: 3
-        versioned:
-            identifier: versioned
-            description: 'Create web optimized versions'
-            accessToOriginal: true
-            publishOriginal: true
-            linker:
-                type: Xi\Filelib\Linker\BeautifurlLinker
-#                options:
-#                    slugify: false
-    plugins:
-        preformat:
-            identifier: preformat
-            type: Xi\Filelib\Plugin\Image\ChangeFormatPlugin
-            profiles: [versioned]
-            targetExtension: jpg
-            imageMagickOptions:
-                ImageCompression: 8
-                ImageFormat: jpg
-                ImageCompressionQuality: 80
-            extension: jpg
-            commands:
-                scale:
-                    type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
-                    method: scaleImage
-                    parameters: [ 1024, 768, 1]
-                modulate:
-                    type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
-                    method: modulateImage
-                    parameters: [ 100, 30, 100 ]
-        randomizer:
-            priority: 20
-            identifier: randomizer
-            type: Xi\Filelib\Plugin\RandomizeNamePlugin
-            profiles: [default, versioned]
 
-        mini:
-            identifier: mini
-            type: Xi\Filelib\Plugin\Image\VersionPlugin
-            profiles: [versioned]
-            imageMagickOptions:
-                ImageCompression: 8
-                ImageFormat: jpg
-                ImageCompressionQuality: 30
-            extension: jpg
-            commands:
-                scale:
-                    type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
-                    method: scaleImage
-                    parameters: [ 320, 200, 1]
-        cropped:
-            identifier: cropped
-            type: Xi\Filelib\Plugin\Image\VersionPlugin
-            profiles: [versioned]
-            imageMagickOptions:
-                ImageCompression: 8
-                ImageFormat: jpg
-                ImageCompressionQuality: 30
-            extension: jpg
-            commands:
-                scale:
-                    type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
-                    method: cropThumbnailImage
-                    parameters: [100, 100]
-        cinemascope:
-            identifier: cinemascope
-            type: Xi\Filelib\Plugin\Image\VersionPlugin
-            profiles: [versioned]
-            imageMagickOptions:
-                ImageCompression: 8
-                ImageFormat: jpg
-                ImageCompressionQuality: 30
-            extension: jpg
-            commands:
-                scale:
-                    type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
-                    method: cropThumbnailImage
-                    parameters: [800, 200]
-                sepia:
-                    type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
-                    method: sepiaToneImage
-                    parameters: [ 90 ]
-        thumb:
-            identifier: thumb
-            type: Xi\Filelib\Plugin\Image\VersionPlugin
-            profiles: [versioned]
-            imageMagickOptions:
-                ImageCompression: '8'
-                ImageFormat: jpg
-                ImageCompressionQuality: 50
-            extension: jpg
-            commands:
-                scale:
-                    type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
-                    method: scaleImage
-                    parameters: ['640', '480', true]
-                watermark:
-                    type: Xi\Filelib\Plugin\Image\Command\WatermarkCommand
-                    WaterMarkImage: %kernel.root_dir%/data/watermark.png
-                    WaterMarkPosition: se
-                    WaterMarkPadding: 10
-#        zencoder:
-#            identifier: zencoder
-#            type: Xi\Filelib\Plugin\Video\ZencoderPlugin
-#            profiles: [versioned]
-#            apiKey: %zencoder_key%
-#            awsKey: %s3_key%
-#            awsSecretKey: %s3_secretkey%
-#            awsBucket: %s3_bucket%
-#            outputs:
-#                pygmi:
-#                    extension: mp4
-#                    output:
-#                        label: pygmi
-#                        device_profile: v2/mobile/legacy
-#                watussi:
-#                    extension: mp4
-#                    output:
-#                        label: watussi
-#                        device_profile: v2/mobile/advanced

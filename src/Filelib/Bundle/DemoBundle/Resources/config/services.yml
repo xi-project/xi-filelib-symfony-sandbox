@@ -6,58 +6,39 @@ services:
         class: %filelib_configurator.class%
         arguments: [ ]
         tags:
-            - { name: xi_filelib.event.listener }
+            - { name: xi_filelib.event_listener }
 
     xi_filelib.plugin.puuppa:
         class: Filelib\Bundle\DemoBundle\Plugin\VersionPlugin
         arguments:
-            - @xi_filelib.storage
-            - @xi_filelib.publisher
-            - @xi_filelib.fileoperator
-            - %kernel.root_dir%/data/temp
+            - puuppa
             -
-              identifier: puuppa
-              profiles: [versioned]
-              imageMagickOptions:
-                  ImageCompression: 8
-                  ImageFormat: jpg
-                  ImageCompressionQuality: 50
-              extension: jpg
-              commands:
-                  scale:
-                      type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
-                      method: scaleImage
-                      parameters: [ 320, 200, 1]
-                  modulate:
-                      type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
-                      method: modulateImage
-                      parameters: [ 100, 0, 0 ]
-        tags:
-            - { name: xi_filelib.plugin }
+                tussi: [lussi, xoo]
 
-    xi_filelib.plugin.selfish:
-        class: Filelib\Bundle\DemoBundle\Plugin\SelfishVersionPlugin
-        arguments:
-            - @xi_filelib.storage
-            - @xi_filelib.publisher
-            - @xi_filelib.fileoperator
-            - %kernel.root_dir%/data/temp
-            -
-              identifier: selfish
-              profiles: [versioned]
-              imageMagickOptions:
-                  ImageCompression: 8
-                  ImageFormat: jpg
-                  ImageCompressionQuality: 50
-              extension: jpg
-              commands:
-                  scale:
-                      type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
-                      method: scaleImage
-                      parameters: [ 320, 200, 1]
-                  modulate:
-                      type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
-                      method: modulateImage
-                      parameters: [ 70, 50, 0 ]
-        tags:
-            - { name: xi_filelib.plugin }
+
+#    xi_filelib.plugin.selfish:
+#        class: Filelib\Bundle\DemoBundle\Plugin\SelfishVersionPlugin
+#        arguments:
+#            - @xi_filelib.storage
+#            - @xi_filelib.publisher
+#            - @xi_filelib.fileoperator
+#            - %kernel.root_dir%/data/temp
+#            -
+#              identifier: selfish
+#              profiles: [versioned]
+#              imageMagickOptions:
+#                  ImageCompression: 8
+#                  ImageFormat: jpg
+#                  ImageCompressionQuality: 50
+#              extension: jpg
+#              commands:
+#                  scale:
+#                      type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
+#                      method: scaleImage
+#                      parameters: [ 320, 200, 1]
+#                  modulate:
+#                      type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
+#                      method: modulateImage
+#                      parameters: [ 70, 50, 0 ]
+#        tags:
+#            - { name: xi_filelib.plugin }

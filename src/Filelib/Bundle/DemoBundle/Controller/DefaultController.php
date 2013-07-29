@@ -3,11 +3,10 @@
 namespace Filelib\Bundle\DemoBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Xi\Filelib\Renderer\SymfonyRenderer;
 use Symfony\Component\HttpFoundation\Response;
-use Xi\Filelib\File\DefaultFileOperator;
 use Xi\Filelib\Command;
 use Xi\Filelib\FileLibrary;
+use Xi\Filelib\Publisher\Publisher;
 
 class DefaultController extends Controller
 {
@@ -27,6 +26,7 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $filelib = $this->getFilelib();
+
         // We want to upload curious manatee image.
         $path = $this->get('kernel')->getRootDir() . "/data/uploads/west_indian_manatee_and_nursing_calf_crystal_river_florida.jpg";
 
@@ -49,7 +49,9 @@ class DefaultController extends Controller
 
         $op = $filelib->getFileOperator();
 
-        $file = $op->upload($upload, $folder, 'versioned');
+        $file = $op->upload($upload, $folder, 'default');
+
+        $this->getPublisher()->publish($file);
 
         return $this->render('FilelibDemoBundle:Default:index.html.twig', array(
             'fl' => $filelib,
@@ -234,6 +236,13 @@ class DefaultController extends Controller
         return $this->get('xi_filelib');
     }
 
+    /**
+     * @return Publisher
+     */
+    protected function getPublisher()
+    {
+        return $this->get('xi_filelib.publisher');
+    }
 
 
 }

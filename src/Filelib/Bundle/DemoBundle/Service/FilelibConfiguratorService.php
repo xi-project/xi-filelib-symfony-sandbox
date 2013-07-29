@@ -5,6 +5,7 @@ namespace Filelib\Bundle\DemoBundle\Service;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Xi\Filelib\Event\IdentifiableEvent;
 use Xi\Filelib\File\File;
+use Xi\Filelib\Events;
 
 class FilelibConfiguratorService implements EventSubscriberInterface
 {
@@ -17,7 +18,7 @@ class FilelibConfiguratorService implements EventSubscriberInterface
     static public function getSubscribedEvents()
     {
         return array(
-            'xi_filelib.identitymap.before_add' => 'onIdentityMapAdd',
+            Events::IDENTITYMAP_AFTER_ADD => 'onIdentityMapAdd',
         );
     }
 
