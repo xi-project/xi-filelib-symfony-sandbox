@@ -1,44 +1,7 @@
 parameters:
-    filelib_configurator.class: Filelib\Bundle\DemoBundle\Service\FilelibConfiguratorService
 
 services:
-    xi_filelib_configurator:
-        class: %filelib_configurator.class%
-        arguments: [ ]
-        tags:
-            - { name: xi_filelib.event_listener }
 
-    xi_filelib.plugin.puuppa:
-        class: Filelib\Bundle\DemoBundle\Plugin\VersionPlugin
-        arguments:
-            - puuppa
-            -
-                tussi: [lussi, xoo]
-
-
-#    xi_filelib.plugin.selfish:
-#        class: Filelib\Bundle\DemoBundle\Plugin\SelfishVersionPlugin
-#        arguments:
-#            - @xi_filelib.storage
-#            - @xi_filelib.publisher
-#            - @xi_filelib.fileoperator
-#            - %kernel.root_dir%/data/temp
-#            -
-#              identifier: selfish
-#              profiles: [versioned]
-#              imageMagickOptions:
-#                  ImageCompression: 8
-#                  ImageFormat: jpg
-#                  ImageCompressionQuality: 50
-#              extension: jpg
-#              commands:
-#                  scale:
-#                      type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
-#                      method: scaleImage
-#                      parameters: [ 320, 200, 1]
-#                  modulate:
-#                      type: Xi\Filelib\Plugin\Image\Command\ExecuteMethodCommand
-#                      method: modulateImage
-#                      parameters: [ 70, 50, 0 ]
-#        tags:
-#            - { name: xi_filelib.plugin }
+    xi_filelib.simple_authorization_adapter:
+        class: Xi\Filelib\Authorization\Adapter\SimpleAuthorizationAdapter
+        arguments: []

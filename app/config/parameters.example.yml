@@ -18,6 +18,7 @@ parameters:
     amqp_username: ~
     amqp_password: ~
     amqp_host: ~
+    amqp_vhost: ~
 
     zencoder_key: ~
     s3_key: ~

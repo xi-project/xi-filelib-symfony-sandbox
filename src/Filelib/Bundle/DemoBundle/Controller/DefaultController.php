@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Xi\Filelib\Command;
 use Xi\Filelib\FileLibrary;
 use Xi\Filelib\Publisher\Publisher;
+use Xi\Filelib\File\Upload\FileUpload;
 
 class DefaultController extends Controller
 {
@@ -31,11 +32,9 @@ class DefaultController extends Controller
         $path = $this->get('kernel')->getRootDir() . "/data/uploads/west_indian_manatee_and_nursing_calf_crystal_river_florida.jpg";
 
         // Find root folder
-        $folder = $filelib->getFolderOperator()->findRoot();
+        $folder = $filelib->getFolderOperator()->createByUrl('images/of/manatees');
 
-        // Prepare file for upload
-        $upload = $filelib->getFileOperator()->prepareUpload($path);
-
+        $upload = new FileUpload($path);
 
         // Configure (optional) limiter to accept only images
         $limiter = new \Xi\Filelib\File\Upload\Limiter();
@@ -73,7 +72,7 @@ class DefaultController extends Controller
         $path = $this->get('kernel')->getRootDir() . "/data/uploads/west_indian_manatee_and_nursing_calf_crystal_river_florida.jpg";
 
         // Find root folder
-        $folder = $filelib->getFolderOperator()->findRoot();
+        $folder = $filelib->getFolderOperator()->findByUrl('images/of/manatees');
 
         // Prepare file for upload
         $upload = $filelib->getFileOperator()->prepareUpload($path);
